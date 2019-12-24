@@ -1,0 +1,18 @@
+#!/bin/bash
+
+docker run --name indoorequal-db --env POSTGRES_PASSWORD=postgres --detach postgres
+
+docker run --rm \
+       --link indoorequal-db:db \
+       --volume $PWD:/tests \
+       --env PGPASSWORD=postgres \
+       postgres psql --host=db --username postgres postgres -f /tests/layers/common/repeat_on.sql
+
+docker run --interactive --tty --rm \
+       --name indoorequal-pgtap \
+       --link indoorequal-db:db \
+       --env PASSWORD=postgres \
+       --env TESTS=/tests/layers/**/*_test.sql \
+       --env DATABASE=postgres \
+       --volume $PWD:/tests \
+       hbpmip/pgtap

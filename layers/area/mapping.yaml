@@ -1,0 +1,64 @@
+# indoor values , see https://taginfo.openstreetmap.org/keys/indoor#values
+def_indoor_polygon: &indoor_polygon
+  - level
+  - area
+  - room
+  - corridor
+
+def_public_transport_polygon: &public_transport_polygon
+  - platform
+
+def_indoor_linestring: &indoor_linestring
+  - wall
+
+tables:
+
+  # etldoc: imposm3 -> osm_indoor_polygon
+  indoor_polygon:
+    type: polygon
+    filters:
+      require:
+        level: [__any__]
+      require_regexp:
+        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+    fields:
+    - name: osm_id
+      type: id
+    - name: class
+      type: mapping_value
+    - name: geometry
+      type: geometry
+    - name: level
+      key: level
+      type: string
+    - name: repeat_on
+      key: repeat_on
+      type: string
+    mapping:
+      indoor: *indoor_polygon
+      public_transport: *public_transport_polygon
+
+  # etldoc: imposm3 -> osm_indoor_linestring
+  indoor_linestring:
+    type: linestring
+    filters:
+      require:
+        level: [__any__]
+      require_regexp:
+        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+    fields:
+    - name: osm_id
+      type: id
+    - name: class
+      key: indoor
+      type: string
+    - name: geometry
+      type: geometry
+    - name: level
+      key: level
+      type: string
+    - name: repeat_on
+      key: repeat_on
+      type: string
+    mapping:
+      indoor: *indoor_linestring

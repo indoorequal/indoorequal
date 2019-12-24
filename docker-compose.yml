@@ -1,0 +1,93 @@
+version: "2"
+volumes:
+  pgdata:
+  cache:
+services:
+  postgres:
+    image: "sophox/postgis"
+    volumes:
+    - pgdata:/var/lib/postgresql/data
+    networks:
+    - postgres_conn
+    ports:
+     - "5432"
+    env_file: .env
+  import-osm:
+    image: "indoorequal/import-osm:latest"
+    env_file: .env
+    networks:
+    - postgres_conn
+    volumes:
+     - ./data:/import
+     - ./build:/mapping
+     - cache:/cache
+  import-osm-diff:
+    image: "indoorequal/import-osm:latest"
+    env_file: .env
+    command: ./import_diff.sh
+    networks:
+    - postgres_conn
+    volumes:
+     - ./data:/import
+     - ./build:/mapping
+     - cache:/cache
+  update-osm:
+    image: "indoorequal/import-osm:latest"
+    env_file: .env
+    command: ./import_update.sh
+    networks:
+    - postgres_conn
+    volumes:
+     - ./data:/import
+     - ./build:/mapping
+     - cache:/cache
+  import-sql:
+    image: "indoorequal/openmaptiles-tools"
+    command: import_sql.sh
+    env_file: .env
+    networks:
+    - postgres_conn
+    volumes:
+     - ./build:/sql
+  openmaptiles-tools:
+    image: "indoorequal/openmaptiles-tools"
+    env_file: .env
+    networks:
+    - postgres_conn
+    volumes:
+     - .:/tileset
+     - ./build:/sql
+  generate-vectortiles:
+    image: "openmaptiles/generate-vectortiles"
+    volumes:
+    - ./data:/export
+    - ./build/indoorequal.tm2source:/tm2source
+    networks:
+    - postgres_conn
+    env_file: .env
+    environment:
+      TILE_TIMEOUT: 9900000
+  postserve:
+    image: "indoorequal/openmaptiles-tools"
+    command: postserve indoorequal.yaml
+    env_file: .env
+    networks:
+    - postgres_conn
+    - web
+    volumes:
+    - .:/tileset
+    ports:
+    - "8090:8090"
+  postserve-cache:
+    image: "indoorequal/nginx-cache-purge"
+    volumes:
+    - ./postserve-cache.conf:/etc/nginx/conf.d/postserve-cache.conf
+    networks:
+    - web
+    ports:
+    - "8090:80"
+
+networks:
+  postgres_conn:
+    driver: bridge
+  web:

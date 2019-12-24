@@ -1,0 +1,32 @@
+def_transportation_linestring: &transportation_linestring
+  - steps
+
+tables:
+
+  # etldoc: imposm3 -> osm_transportation_linestring
+  transportation_linestring:
+    type: linestring
+    filters:
+      require:
+        level: [__any__]
+      require_regexp:
+        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+    fields:
+    - name: osm_id
+      type: id
+    - name: class
+      key: highway
+      type: string
+    - name: conveying
+      key: conveying
+      type: string
+    - name: geometry
+      type: geometry
+    - name: level
+      key: level
+      type: string
+    - name: repeat_on
+      key: repeat_on
+      type: string
+    mapping:
+      highway: *transportation_linestring
