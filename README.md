@@ -2,6 +2,16 @@
 
 indoor= generate vector tiles of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t].
 
+## Usage
+
+To start the initial import of the planet:
+
+    ./script/import
+
+To start a one-time update and invalidate the tile cache:
+
+    ./script/update
+
 ## License
 
 All code in this repository is under the [BSD license](./LICENSE.md) and the cartography decisions encoded in the schema and SQL are licensed under [CC-BY](./LICENSE.md).
