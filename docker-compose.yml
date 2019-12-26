@@ -9,8 +9,6 @@ services:
     - pgdata:/var/lib/postgresql/data
     networks:
     - postgres_conn
-    ports:
-     - "5432"
     env_file: .env
   import-osm:
     image: "indoorequal/import-osm:latest"
@@ -76,8 +74,6 @@ services:
     - web
     volumes:
     - .:/tileset
-    ports:
-    - "8090:8090"
   postserve-cache:
     image: "indoorequal/nginx-cache-purge"
     volumes:
