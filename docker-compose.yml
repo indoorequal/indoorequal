@@ -70,8 +70,6 @@ services:
     - ./postserve-cache.conf:/etc/nginx/conf.d/postserve-cache.conf
     networks:
     - web
-    ports:
-    - "8090:80"
 
 networks:
   postgres_conn:
