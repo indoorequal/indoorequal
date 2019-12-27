@@ -55,16 +55,6 @@ services:
     volumes:
      - .:/tileset
      - ./build:/sql
-  generate-vectortiles:
-    image: "openmaptiles/generate-vectortiles"
-    volumes:
-    - ./data:/export
-    - ./build/indoorequal.tm2source:/tm2source
-    networks:
-    - postgres_conn
-    env_file: .env
-    environment:
-      TILE_TIMEOUT: 9900000
   postserve:
     image: "indoorequal/openmaptiles-tools"
     command: postserve indoorequal.yaml
