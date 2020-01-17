@@ -67,7 +67,8 @@ services:
   postserve-cache:
     image: "indoorequal/nginx-cache-purge"
     volumes:
-    - ./postserve-cache.conf:/etc/nginx/conf.d/postserve-cache.conf
+    - ./postserve-cache.conf:/etc/nginx/conf.d/postserve-cache.conf:ro
+    - ./data/:/data/:ro
     networks:
     - web
 
