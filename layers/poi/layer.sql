@@ -2,7 +2,8 @@
 -- etldoc: layer_poi[shape=record fillcolor=lightpink, style="rounded,filled",
 -- etldoc:     label="layer_poi | <z12> z12 | <z13> z13 | <z14_> z14+" ] ;
 
-CREATE OR REPLACE FUNCTION layer_poi(bbox geometry, zoom_level integer, pixel_width numeric)
+DROP FUNCTION IF EXISTS layer_poi(geometry, integer, numeric);
+CREATE FUNCTION layer_poi(bbox geometry, zoom_level integer, pixel_width numeric)
 RETURNS TABLE(osm_id bigint, geometry geometry, name text, name_en text, name_de text, tags hstore, class text, subclass text, agg_stop integer, layer integer, level numeric, indoor integer, "rank" int) AS $$
     SELECT osm_id_hash AS osm_id, geometry, NULLIF(name, '') AS name,
         COALESCE(NULLIF(name_en, ''), name) AS name_en,
