@@ -16,7 +16,7 @@ To start a one-time update and invalidate the tile cache:
 
 All code in this repository is under the [BSD license](./LICENSE.md) and the cartography decisions encoded in the schema and SQL are licensed under [CC-BY](./LICENSE.md).
 
-Products or services using maps derived from Indoor Equal schema need to visibly credit "IndoorEqual.org" and "OpenMapTiles.org" or reference "Indoor Equal" and "OpenMapTiles" with a link to https://indoorequal.org/ and https://openmaptiles.org/. Exceptions to attribution requirement can be granted on request.
+Products or services using maps derived from Indoor Equal schema need to visibly credit "IndoorEqual.org" and "OpenMapTiles.org" or reference "indoor=" and "OpenMapTiles" with a link to https://indoorequal.org/ and https://openmaptiles.org/. Exceptions to attribution requirement can be granted on request.
 
 For a browsable electronic map based on Indoor Equal, OpenMapTiles and OpenStreetMap data, the
 credit should appear in the corner of the map. For example:
