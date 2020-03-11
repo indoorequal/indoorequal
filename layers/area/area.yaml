@@ -12,6 +12,7 @@ layer:
       - wall
       - area
       - room
+      - column
     level:
       description: |
         The level of the area

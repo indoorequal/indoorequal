@@ -4,6 +4,7 @@ def_indoor_polygon: &indoor_polygon
   - area
   - room
   - corridor
+  - column
 
 def_public_transport_polygon: &public_transport_polygon
   - platform
