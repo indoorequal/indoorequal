@@ -5,15 +5,11 @@ layer:
   fields:
     class:
       description: |
-        The of transportations
+        The class of transportation
       values:
         - steps
-    conveying:
-      description: |
-        The type of area
-    level:
-      description: |
-        The level of the feature
+    conveying: The value of the [conveying tag](https://wiki.openstreetmap.org/wiki/Key:conveying)
+    level: The level of the feature
   datasource:
     geometry_field: geometry
     query: (SELECT geometry, class, conveying, level FROM layer_transportation(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t

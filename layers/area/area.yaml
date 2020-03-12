@@ -6,16 +6,14 @@ layer:
   fields:
     class:
       description: |
-        Room, corridor, area.
+        The value of the [indoor tag](https://wiki.openstreetmap.org/wiki/Key:indoor)
       values:
       - corridor
       - wall
       - area
       - room
       - column
-    level:
-      description: |
-        The level of the area
+    level: The level of the area
   datasource:
     geometry_field: geometry
     query: (SELECT geometry, class, level FROM layer_indoor(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
