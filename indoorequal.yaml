@@ -1,5 +1,6 @@
 tileset:
   layers:
+    - layers/area_name/area_name.yaml
     - layers/area/area.yaml
     - layers/transportation/transportation.yaml
     - layers/poi/poi.yaml

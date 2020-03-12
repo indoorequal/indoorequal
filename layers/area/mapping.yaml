@@ -35,6 +35,19 @@ tables:
     - name: repeat_on
       key: repeat_on
       type: string
+    - name: name
+      key: name
+      type: string
+    - name: name_en
+      key: name:en
+      type: string
+    - name: name_de
+      key: name:de
+      type: string
+    - name: tags
+      type: hstore_tags
+    tags:
+      include: [amenity, shop, craft, leisure, office, sport, tourism]
     mapping:
       indoor: *indoor_polygon
       public_transport: *public_transport_polygon

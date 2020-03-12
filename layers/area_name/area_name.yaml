@@ -1,0 +1,19 @@
+layer:
+  id: "area_name"
+  description: ""
+  buffer_size: 4
+  fields:
+    name: The OSM [`name`](http://wiki.openstreetmap.org/wiki/Key:name) value
+    name_en: English name `name:en` if available, otherwise `name`.
+    name_de: German name `name:de` if available, otherwise `name` or `name:en`.
+    level: The level of the feature
+  datasource:
+    geometry_field: geometry
+    query: (SELECT geometry, name, name_en, name_de, level FROM layer_area_name(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+schema:
+  - ../common/repeat_on.sql
+  - ./update_area_point.sql
+  - ./layer.sql
+datasources:
+  - type: imposm3
+    mapping_file: ../area/mapping.yaml
