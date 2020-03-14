@@ -8,11 +8,13 @@ layer:
       description: |
         The value of the [indoor tag](https://wiki.openstreetmap.org/wiki/Key:indoor)
       values:
-      - corridor
-      - wall
       - area
-      - room
       - column
+      - corridor
+      - level
+      - platform
+      - room
+      - wall
     level: The level of the area
   datasource:
     geometry_field: geometry

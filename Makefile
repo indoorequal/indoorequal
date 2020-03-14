@@ -2,7 +2,7 @@ all: build/indoorequal.tm2source/data.yml build/mapping.yaml build/tileset.sql
 
 help:
 	@echo "=============================================================================="
-	@echo " IndoorEqual https://github.com/indoorequal "
+	@echo " Indoor= https://github.com/indoorequal "
 	@echo "Hints for designers:"
 	@echo "  make start-postserve                 # start Postserver + Maputnik Editor [ see localhost:8088 ] "
 	@echo "  make start-tileserver                # start klokantech/tileserver-gl [ see localhost:8080 ] "
