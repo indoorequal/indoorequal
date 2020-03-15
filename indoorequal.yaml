@@ -5,7 +5,7 @@ tileset:
     - layers/transportation/transportation.yaml
     - layers/poi/poi.yaml
   name: indoor=
-  version: 0.0.1
+  version: 0.0.2
   id: indoorequal
   description: "Indoor tiles"
   attribution: '<a href="https://indoorequal.org/" target="_blank">&copy; indoor=</a> <a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
