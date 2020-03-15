@@ -46,8 +46,6 @@ tables:
       type: string
     - name: tags
       type: hstore_tags
-    tags:
-      include: [amenity, shop, craft, leisure, office, sport, tourism]
     mapping:
       indoor: *indoor_polygon
       public_transport: *public_transport_polygon
