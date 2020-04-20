@@ -1,0 +1,24 @@
+{
+  "data_format": 1,
+  "data_url": "https://raw.githubusercontent.com/indoorequal/indoorequal/master/taginfo.json",
+  "project": {
+    "name": "indoor=",
+    "description": " An indoor viewer based on OpenStreetMap data",
+    "project_url": "https://indoorequal.org/",
+    "doc_url": "https://github.com/indoorequal/indoorequal",
+    "icon_url": "https://raw.githubusercontent.com/indoorequal/indoorequal.org/master/icons/favicon.png",
+    "contact_name": "François de Metz",
+    "contact_email": "francois@2metz.fr"
+  },
+  "tags": [
+    {
+      "key": "indoor"
+    },
+    {
+      "key": "level"
+    },
+    {
+      "key": "repeat_on"
+    }
+  ]
+}
