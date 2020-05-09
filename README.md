@@ -14,6 +14,10 @@ To start a one-time update and invalidate the tile cache:
 
     ./script/update
 
+To run the service in production with tiles caching:
+
+    docker-compose up -d postserve postserve-cache
+
 ## License
 
 All code in this repository is under the [BSD license](./LICENSE.md) and the cartography decisions encoded in the schema and SQL are licensed under [CC-BY](./LICENSE.md).
