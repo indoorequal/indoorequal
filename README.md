@@ -24,7 +24,7 @@ All code in this repository is under the [BSD license](./LICENSE.md) and the car
 
 Products or services using maps derived from indoor= schema need to visibly credit "IndoorEqual.org" and "OpenMapTiles.org" or reference "indoor=" and "OpenMapTiles" with a link to https://indoorequal.org/ and https://openmaptiles.org/. Exceptions to attribution requirement can be granted on request.
 
-For a browsable electronic map based on Indoor Equal, OpenMapTiles and OpenStreetMap data, the
+For a browsable electronic map based on indoor=, OpenMapTiles and OpenStreetMap data, the
 credit should appear in the corner of the map. For example:
 
 [© indoor=](https://indoorequal.org/) [© OpenMapTiles](https://openmaptiles.org/) [© OpenStreetMap contributors](https://www.openstreetmap.org/copyright)
