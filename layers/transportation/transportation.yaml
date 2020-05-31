@@ -1,6 +1,7 @@
 layer:
   id: "transportation"
-  description: ""
+  description: |
+    The transportation layer contains line string features that represent steps. See [the highway=steps](https://wiki.openstreetmap.org/wiki/Tag:highway%3Dsteps) page on the wiki.
   buffer_size: 4
   fields:
     class:

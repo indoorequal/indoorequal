@@ -1,7 +1,7 @@
 layer:
   id: "area"
   description: |
-      [Indoor](https://wiki.openstreetmap.org/wiki/Key:indoor)
+    This layer includes [indoor area](https://wiki.openstreetmap.org/wiki/Key:indoor) with their corresponding level.
   buffer_size: 4
   fields:
     class:
