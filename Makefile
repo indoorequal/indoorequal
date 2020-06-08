@@ -55,6 +55,7 @@ build/indoorequal.tm2source/data.yml: init-dirs
 
 build/mapping.yaml: init-dirs
 	docker-compose run $(DC_OPTS) openmaptiles-tools generate-imposm3 indoorequal.yaml > $@
+	echo 'use_single_id_space: true' >> build/mapping.yaml
 
 build/tileset.sql: init-dirs
 	docker-compose run $(DC_OPTS) openmaptiles-tools generate-sql indoorequal.yaml > $@
