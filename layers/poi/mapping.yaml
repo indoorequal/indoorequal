@@ -109,7 +109,97 @@ def_poi_mapping_railway: &poi_mapping_railway
 
 # shop values , see http://taginfo.openstreetmap.org/keys/shop#values
 def_poi_mapping_shop: &poi_mapping_shop
-  - __any__
+  - seafood
+  - pastry
+  - cheese
+  - kitchen
+  - ticket
+  - frame
+  - tea
+  - locksmith
+  - accessories
+  - alcohol
+  - antiques
+  - art
+  - bag
+  - bakery
+  - beauty
+  - bed
+  - beverages
+  - bicycle
+  - books
+  - boutique
+  - butcher
+  - camera
+  - car
+  - car_repair
+  - car_parts
+  - carpet
+  - charity
+  - chemist
+  - chocolate
+  - clothes
+  - coffee
+  - computer
+  - confectionery
+  - convenience
+  - copyshop
+  - cosmetics
+  - deli
+  - delicatessen
+  - department_store
+  - doityourself
+  - dry_cleaning
+  - electronics
+  - erotic
+  - fabric
+  - florist
+  - frozen_food
+  - furniture
+  - garden_centre
+  - general
+  - gift
+  - greengrocer
+  - hairdresser
+  - hardware
+  - hearing_aids
+  - hifi
+  - ice_cream
+  - interior_decoration
+  - jewelry
+  - kiosk
+  - lamps
+  - laundry
+  - mall
+  - massage
+  - mobile_phone
+  - motorcycle
+  - music
+  - musical_instrument
+  - newsagent
+  - optician
+  - outdoor
+  - perfume
+  - perfumery
+  - pet
+  - photo
+  - second_hand
+  - shoes
+  - sports
+  - stationery
+  - supermarket
+  - tailor
+  - tattoo
+  - ticket
+  - tobacco
+  - toys
+  - travel_agency
+  - video
+  - video_games
+  - watches
+  - weapons
+  - wholesale
+  - wine
 
 # sport values , see http://taginfo.openstreetmap.org/keys/sport#values
 def_poi_mapping_sport: &poi_mapping_sport
@@ -219,7 +309,13 @@ def_poi_mapping_office: &poi_mapping_office
 
 # craft values , see http://taginfo.openstreetmap.org/keys/craft#values
 def_poi_craft: &poi_mapping_craft
-  - __any__
+  - caterer
+  - shoemaker
+  - tailor
+  - brewery
+  - confectionery
+  - dressmaker
+  - electronics_repair
 
 def_poi_entrance: &poi_mapping_entrance
   - __any__
