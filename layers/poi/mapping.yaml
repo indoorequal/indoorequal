@@ -331,6 +331,9 @@ def_poi_exhibit: &poi_mapping_exhibit
 def_poi_door: &poi_mapping_door
   - door
 
+def_poi_emergency: &poi_mapping_emergency
+  - defibrillator
+
 def_poi_fields: &poi_fields
   - name: osm_id
     type: id
@@ -390,9 +393,10 @@ def_poi_mapping: &poi_mapping
   amenity: *poi_mapping_amenity
   barrier: *poi_mapping_barrier
   craft: *poi_mapping_craft
-  door: *poi_mapping_door
-  exhibit: *poi_mapping_exhibit
+  door: *poi_mapping_doork
+  emergency: *poi_mapping_emergency
   entrance: *poi_mapping_entrance
+  exhibit: *poi_mapping_exhibit
   highway: *poi_mapping_highway
   landuse: *poi_mapping_landuse
   leisure: *poi_mapping_leisure
