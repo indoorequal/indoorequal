@@ -6,6 +6,7 @@ def_poi_mapping_aerialway: &poi_mapping_aerialway
 def_poi_mapping_amenity: &poi_mapping_amenity
   - car_rental
   - piano
+  - bureau_de_change
   - vending_machine
   - arts_centre
   - bank
