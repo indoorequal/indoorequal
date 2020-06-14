@@ -318,8 +318,17 @@ def_poi_craft: &poi_mapping_craft
   - dressmaker
   - electronics_repair
 
+# Entrance values https://taginfo.openstreetmap.org/keys/?key=entrance#values
 def_poi_entrance: &poi_mapping_entrance
-  - __any__
+  - 'yes'
+  - main
+  - staircase
+  - home
+  - service
+  - emergency
+  - exit
+  - shop
+  - building
 
 def_poi_highway: &poi_mapping_highway
   - elevator
