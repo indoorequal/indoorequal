@@ -7,7 +7,7 @@ tileset:
   name: indoor=
   version: 0.0.2
   id: indoorequal
-  description: "Indoor tiles"
+  description: "An indoor viewer based on OpenStreetMap data"
   attribution: '<a href="https://indoorequal.org/" target="_blank">&copy; indoor=</a> <a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
   center: [-12.2168, 28.6135, 4]
   bounds: [-180.0,-85.0511,180.0,85.0511]
