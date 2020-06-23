@@ -3,8 +3,9 @@
 
 DROP FUNCTION IF EXISTS layer_indoor(geometry, integer, numeric);
 CREATE FUNCTION layer_indoor(bbox geometry, zoom_level integer, pixel_width numeric)
-RETURNS TABLE(geometry geometry, class text, level numeric, access text) AS $$
+RETURNS TABLE(id integer, geometry geometry, class text, level numeric, access text) AS $$
    SELECT
+        id,
         geometry,
         class,
         unnest(array_cat(
@@ -14,12 +15,12 @@ RETURNS TABLE(geometry geometry, class text, level numeric, access text) AS $$
         access
    FROM (
       -- etldoc: osm_indoor_polygon -> layer_indoor:z14_
-      SELECT geometry, class, level, repeat_on, access
+      SELECT id, geometry, class, level, repeat_on, access
       FROM osm_indoor_polygon
       WHERE zoom_level >= 14 AND geometry && bbox
       UNION ALL
       -- etldoc: osm_indoor_linestring -> layer_indoor:z14_
-      SELECT geometry, class, level, repeat_on, NULL as access
+      SELECT id, geometry, class, level, repeat_on, NULL as access
       FROM osm_indoor_linestring
       WHERE zoom_level >= 14 AND geometry && bbox
    ) AS indoor_all;
