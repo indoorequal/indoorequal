@@ -438,3 +438,16 @@ tables:
         level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
     fields: *poi_fields
     mapping: *poi_mapping
+
+tags:
+  include:
+    - opening_hours
+    - opening_hours:url
+    - website
+    - contact:website
+    - facebook
+    - contact:facebook
+    - phone
+    - contact:phone
+    - mapillary
+    - wheelchair

@@ -1,12 +1,25 @@
 #!/bin/bash
 
-docker run --name indoorequal-db --env POSTGRES_PASSWORD=postgres --detach postgres
+make
+
+docker run --name indoorequal-db --env POSTGRES_PASSWORD=postgres --detach indoorequal/postgis
 
 docker run --rm \
        --link indoorequal-db:db \
        --volume $PWD:/tests \
        --env PGPASSWORD=postgres \
-       postgres psql --host=db --username postgres postgres -f /tests/layers/common/repeat_on.sql
+       postgres psql --host=db --username postgres postgres \
+       -f /tests/layers/common/table_schema.sql
+
+docker run \
+       --rm \
+       --link indoorequal-db:db \
+       -e POSTGRES_DB=postgres \
+       -e POSTGRES_USER=postgres \
+       -e POSTGRES_PASSWORD=postgres \
+       -e POSTGRES_HOST=db \
+       --volume $PWD/build:/sql \
+       indoorequal/openmaptiles-tools import_sql.sh
 
 docker run --interactive --tty --rm \
        --name indoorequal-pgtap \
