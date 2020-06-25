@@ -1,5 +1,5 @@
-version: "2"
+version: "2.3"
 services:
   postserve-cache:
     ports:
-    - "8090:80"
+    - "${PPORT:-8090}:80"

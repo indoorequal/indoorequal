@@ -3,11 +3,7 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-docker-compose run --rm \
-               -e TILES_DIR=/import/expire_tiles \
-               -e EXPIRETILES_ZOOM=17 \
-               -e IMPOSM3_SINGLE_DIFF=true \
-               update-osm
+make update-osm
 
 find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/expire_tiles.tiles
 sed --in-place --expression=s/$/.pbf/ data/expire_tiles/expire_tiles.tiles

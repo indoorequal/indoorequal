@@ -3,12 +3,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
-docker-compose run --rm openmaptiles-tools aria2c --dir data/ https://osm.cquest.org/torrents/planet-latest.osm.pbf.torrent
+make download
 
 make clean
 make
 docker-compose up -d postgres
-make forced-clean-sql
-docker-compose run --rm import-osm
-docker-compose run --rm import-sql
-make psql-analyze
+make import-osm
+make import-sql
+make analyze-db
