@@ -1,0 +1,72 @@
+name: Postgres tests
+
+on: push
+
+jobs:
+  pgtap:
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: indoorequal/postgis
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install pg_prove
+        run: sudo cpan TAP::Parser::SourceHandler::pgTAP
+        env:
+          SHELL: /bin/bash
+
+      - name: install postgres dev
+        run: sudo apt-get install -y --no-install-recommends postgresql-server-dev-all
+
+      - name: Checkout pgtap
+        uses: actions/checkout@v2
+        with:
+          repository: theory/pgtap
+          path: pgtap
+          ref: v1.1.0
+
+      - name: install pgtap
+        working-directory: pgtap
+        run: make && psql --host localhost --username postgres --dbname postgres --file sql/pgtap.sql
+        env:
+          PGPASSWORD: postgres
+
+      - name: Build tileset
+        run: make
+
+      - name: load schema
+        run: >-
+          psql --host localhost --username postgres --dbname postgres \
+               --file layers/common/table_schema.sql
+        env:
+          PGPASSWORD: postgres
+
+      - name: import sql
+        uses: docker://indoorequal/openmaptiles-tools:5.2
+        with:
+          args: import-sql
+        env:
+          SQL_DIR: ./build/sql
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: postgres
+          MAX_PARALLEL_PSQL: 1
+
+      - name: run tests
+        run: pg_prove --host localhost --dbname postgres --username postgres layers/**/*_test.sql
+        env:
+          PGPASSWORD: postgres
