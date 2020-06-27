@@ -4,8 +4,4 @@ set -o pipefail
 set -o nounset
 
 make update-osm
-
-find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/expire_tiles.tiles
-sed --in-place --expression=s/$/.pbf/ data/expire_tiles/expire_tiles.tiles
-wget --input-file=data/expire_tiles/expire_tiles.tiles --base=https://tiles.indoorequal.org/purge/tiles/ --quiet --output-file=/dev/null || true
-rm -rf data/expire_tiles/
+make expire-tiles

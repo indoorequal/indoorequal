@@ -84,7 +84,7 @@ services:
       - .:/tileset
 
   postserve-cache:
-    image: "indoorequal/nginx-cache-purge"
+    image: "indoorequal/nginx-cache-purge:1.19"
     volumes:
       - ./postserve-cache.conf:/etc/nginx/conf.d/default.conf:ro
       - ./data/:/data/:ro

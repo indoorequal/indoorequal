@@ -483,3 +483,11 @@ test-perf-null: init-dirs
 .PHONY: build-test-pbf
 build-test-pbf: init-dirs
 	docker-compose run $(DC_OPTS) openmaptiles-tools /tileset/.github/workflows/build-test-data.sh
+
+.PHONY: expire-tiles
+expire-tiles:
+	@echo "Expiring tiles"
+	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/expire_tiles.tiles
+	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/expire_tiles.tiles
+	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/expire_tiles.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
+	@rm -rf data/expire_tiles/
