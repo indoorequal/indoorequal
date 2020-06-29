@@ -18,8 +18,9 @@ docker run \
        -e POSTGRES_USER=postgres \
        -e POSTGRES_PASSWORD=postgres \
        -e POSTGRES_HOST=db \
-       --volume $PWD/build:/sql \
-       indoorequal/openmaptiles-tools import_sql.sh
+       -e MAX_PARALLEL_PSQL=1 \
+       --volume $PWD/build/sql:/sql \
+       indoorequal/openmaptiles-tools:5.2 import-sql
 
 docker run --interactive --tty --rm \
        --name indoorequal-pgtap \

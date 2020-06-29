@@ -1,78 +1,93 @@
-version: "2"
+# This version must match the MAKE_DC_VERSION value below
+version: "2.3"
+
 volumes:
   pgdata:
-  cache:
-services:
-  postgres:
-    image: "indoorequal/postgis"
-    volumes:
-    - pgdata:/var/lib/postgresql/data
-    networks:
-    - postgres_conn
-    env_file: .env
-  import-osm:
-    image: "indoorequal/import-osm:latest"
-    env_file: .env
-    networks:
-    - postgres_conn
-    volumes:
-     - ./data:/import
-     - ./build:/mapping
-     - cache:/cache
-  import-osm-diff:
-    image: "indoorequal/import-osm:latest"
-    env_file: .env
-    command: ./import_diff.sh
-    networks:
-    - postgres_conn
-    volumes:
-     - ./data:/import
-     - ./build:/mapping
-     - cache:/cache
-  update-osm:
-    image: "indoorequal/import-osm:latest"
-    env_file: .env
-    command: ./import_update.sh
-    networks:
-    - postgres_conn
-    volumes:
-     - ./data:/import
-     - ./build:/mapping
-     - cache:/cache
-  import-sql:
-    image: "indoorequal/openmaptiles-tools"
-    command: import_sql.sh
-    env_file: .env
-    networks:
-    - postgres_conn
-    volumes:
-     - ./build:/sql
-  openmaptiles-tools:
-    image: "indoorequal/openmaptiles-tools"
-    env_file: .env
-    networks:
-    - postgres_conn
-    volumes:
-     - .:/tileset
-     - ./build:/sql
-  postserve:
-    image: "indoorequal/openmaptiles-tools"
-    command: postserve indoorequal.yaml
-    env_file: .env
-    networks:
-    - postgres_conn
-    - web
-    volumes:
-    - .:/tileset
-  postserve-cache:
-    image: "indoorequal/nginx-cache-purge"
-    volumes:
-    - ./postserve-cache.conf:/etc/nginx/conf.d/default.conf:ro
-    - ./data/:/data/:ro
-    networks:
-    - web
 
 networks:
   postgres_conn:
     driver: bridge
   web:
+    driver: bridge
+
+services:
+
+  postgres:
+    image: "indoorequal/postgis"
+    command: postgres -c jit=off
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - postgres_conn
+    ports:
+      - "5432"
+    env_file: .env-postgres
+
+  openmaptiles-tools:
+    image: "indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
+    env_file: .env
+    environment:
+      # Must match the version of this file (first line)
+      # download-osm will use it when generating a composer file
+      MAKE_DC_VERSION: "2.3"
+      # Allow DIFF_MODE to be overwritten from shell
+      DIFF_MODE: ${DIFF_MODE}
+      # Imposm configuration file describes how to load updates when enabled
+      IMPOSM_CONFIG_FILE: ${IMPOSM_CONFIG_FILE}
+      # Control import-sql processes
+      MAX_PARALLEL_PSQL: ${MAX_PARALLEL_PSQL}
+    networks:
+      - postgres_conn
+    volumes:
+      - .:/tileset
+      - ./data:/import
+      - ./build/sql:/sql
+      - ./build:/mapping
+      - ./cache:/cache
+
+  generate-changed-vectortiles:
+    image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
+    command: ./export-list.sh
+    volumes:
+      - ./data:/export
+      - ./build/indoorequal.tm2source:/tm2source
+    networks:
+      - postgres_conn
+    env_file: .env
+    environment:
+      FILTER_MAPNIK_OUTPUT: ${FILTER_MAPNIK_OUTPUT}
+      MBTILES_NAME: ${MBTILES_FILE}
+
+  generate-vectortiles:
+    image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
+    volumes:
+      - ./data:/export
+      - ./build/indoorequal.tm2source:/tm2source
+    networks:
+      - postgres_conn
+    env_file: .env
+    environment:
+      FILTER_MAPNIK_OUTPUT: ${FILTER_MAPNIK_OUTPUT}
+      MBTILES_NAME: ${MBTILES_FILE}
+      BBOX: ${BBOX}
+      MIN_ZOOM: ${MIN_ZOOM}
+      MAX_ZOOM: ${MAX_ZOOM}
+
+  postserve:
+    image: "indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
+    command: "postserve indoorequal.yaml --verbose --port ${PPORT:-8090}"
+    env_file: .env
+    networks:
+      - postgres_conn
+      - web
+    volumes:
+      - .:/tileset
+
+  postserve-cache:
+    image: "indoorequal/nginx-cache-purge:1.19"
+    volumes:
+      - ./postserve-cache.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./data/:/data/:ro
+    networks:
+      - web
+      - postgres_conn
