@@ -15,11 +15,12 @@ layer:
       - platform
       - room
       - wall
+    is_poi: True if this a POI
     level: The level of the area
     access: The original value of the [access tag](https://wiki.openstreetmap.org/wiki/Key:access).
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, class, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT geometry, class, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
   - ../common/repeat_on.sql
   - ../common/is_poi.sql
