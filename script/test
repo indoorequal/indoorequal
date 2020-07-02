@@ -1,5 +1,6 @@
 #!/bin/bash
 
+make clean
 make
 
 docker run --name indoorequal-db --env POSTGRES_PASSWORD=postgres --detach indoorequal/postgis

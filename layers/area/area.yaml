@@ -22,6 +22,7 @@ layer:
     query: (SELECT geometry, class, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
   - ../common/repeat_on.sql
+  - ../common/is_poi.sql
   - ./layer.sql
 datasources:
   - type: imposm3

@@ -38,14 +38,14 @@ RETURNS TABLE(id integer, geometry geometry, class text, level numeric, access t
    FROM (
      SELECT -1 AS id, ST_UNION(geometry) AS geometry, 'area' as class, level, access
      FROM unwalled_areas
-     WHERE NOT tags ?| ARRAY['amenity', 'shop', 'craft', 'leisure', 'office', 'sport', 'tourism', 'exhibit']
+     WHERE NOT is_poi(tags)
      GROUP BY level, access
 
      UNION ALL
 
      SELECT id, geometry, class, level, access
      FROM unwalled_areas
-     WHERE tags ?| ARRAY['amenity', 'shop', 'craft', 'leisure', 'office', 'sport', 'tourism', 'exhibit']
+     WHERE is_poi(tags)
 
      UNION ALL
 
