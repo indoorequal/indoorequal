@@ -1,5 +1,6 @@
 layer:
   id: "area_name"
+  requires: "area"
   description:  |
     This is the layer for labelling the indoor areas. Only indoor areas that are named `name=*` and are long enough
     to place text upon appear. The area must not have any POI tag to appear here.
@@ -13,8 +14,6 @@ layer:
     geometry_field: geometry
     query: (SELECT geometry, name, name_en, name_de, level FROM layer_area_name(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
-  - ../common/repeat_on.sql
-  - ../common/is_poi.sql
   - ./update_area_point.sql
   - ./layer.sql
 datasources:
