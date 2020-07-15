@@ -13,7 +13,7 @@ layer:
     level: The level of the feature
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, class, conveying, level FROM layer_transportation(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT geometry, class, conveying, level FROM layer_transportation(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ../common/repeat_on.sql
   - ./layer.sql

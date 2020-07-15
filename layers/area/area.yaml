@@ -20,7 +20,7 @@ layer:
     access: The original value of the [access tag](https://wiki.openstreetmap.org/wiki/Key:access).
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, class, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT geometry, class, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ../common/repeat_on.sql
   - ../common/is_poi.sql
