@@ -1,5 +1,5 @@
 -- etldoc: layer_indoor[shape=record fillcolor=lightpink,
--- etldoc:     style="rounded,filled", label="layer_indoor | <z14_> z14+" ] ;
+-- etldoc:     style="rounded,filled", label="layer_indoor | <z17_> z17+" ] ;
 
 DROP FUNCTION IF EXISTS layer_indoor(geometry, integer, numeric);
 CREATE FUNCTION layer_indoor(bbox geometry, zoom_level integer, pixel_width numeric)
@@ -17,15 +17,15 @@ RETURNS TABLE(id integer, geometry geometry, class text, is_poi boolean, level n
           access,
           tags
      FROM (
-        -- etldoc: osm_indoor_polygon -> layer_indoor:z14_
+        -- etldoc: osm_indoor_polygon -> layer_indoor:z17_
         SELECT id, geometry, class, level, repeat_on, access, tags
         FROM osm_indoor_polygon
-        WHERE zoom_level >= 14 AND geometry && bbox
+        WHERE zoom_level >= 17 AND geometry && bbox
         UNION ALL
-        -- etldoc: osm_indoor_linestring -> layer_indoor:z14_
+        -- etldoc: osm_indoor_linestring -> layer_indoor:z17_
         SELECT id, geometry, class, level, repeat_on, NULL as access, NULL AS tags
         FROM osm_indoor_linestring
-        WHERE zoom_level >= 14 AND geometry && bbox
+        WHERE zoom_level >= 17 AND geometry && bbox
      ) AS indoor_all
    ),
    unwalled_areas AS (
