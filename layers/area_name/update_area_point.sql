@@ -1,4 +1,4 @@
-DROP TRIGGER IF EXISTS trigger_flag_point ON osm_area_polygon;
+DROP TRIGGER IF EXISTS trigger_flag_point ON osm_indoor_polygon;
 DROP TRIGGER IF EXISTS trigger_refresh ON area_point.updates;
 
 DROP MATERIALIZED VIEW IF EXISTS  osm_area_point CASCADE;
