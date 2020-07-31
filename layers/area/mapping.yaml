@@ -35,6 +35,9 @@ tables:
     - name: repeat_on
       key: repeat_on
       type: string
+    - name: ref
+      key: ref
+      type: string
     - name: name
       key: name
       type: string
