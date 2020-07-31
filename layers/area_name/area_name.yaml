@@ -16,6 +16,3 @@ layer:
 schema:
   - ./update_area_point.sql
   - ./layer.sql
-datasources:
-  - type: imposm3
-    mapping_file: ../area/mapping.yaml
