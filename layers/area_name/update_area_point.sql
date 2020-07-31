@@ -7,7 +7,6 @@ CREATE MATERIALIZED VIEW osm_area_point AS (
     SELECT
         wp.osm_id, ST_PointOnSurface(wp.geometry) AS geometry,
         wp.name, wp.name_en, wp.name_de,
-        ST_Area(wp.geometry) AS area,
         wp.level, wp.repeat_on
     FROM osm_indoor_polygon AS wp
     WHERE wp.name <> '' AND NOT is_poi(wp.tags)
