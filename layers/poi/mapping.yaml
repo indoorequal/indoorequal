@@ -309,6 +309,7 @@ def_poi_mapping_tourism: &poi_mapping_tourism
   - viewpoint
   - zoo
 
+# Office values , see https://taginfo.openstreetmap.org/keys/office#values
 def_poi_mapping_office: &poi_mapping_office
   - government
 
@@ -322,7 +323,7 @@ def_poi_craft: &poi_mapping_craft
   - dressmaker
   - electronics_repair
 
-# Entrance values https://taginfo.openstreetmap.org/keys/?key=entrance#values
+# Entrance values , see https://taginfo.openstreetmap.org/keys/?key=entrance#values
 def_poi_entrance: &poi_mapping_entrance
   - 'yes'
   - main
@@ -334,13 +335,16 @@ def_poi_entrance: &poi_mapping_entrance
   - shop
   - building
 
+# Highway values , see https://taginfo.openstreetmap.org/keys/highway#values
 def_poi_highway: &poi_mapping_highway
   - elevator
 
+# Exhibit values , see https://taginfo.openstreetmap.org/keys/exhibit#values
 def_poi_exhibit: &poi_mapping_exhibit
   - artwork
   - history
 
+# Door values , see https://taginfo.openstreetmap.org/keys/door#values
 def_poi_door: &poi_mapping_door
   - 'yes'
   - 'no'
@@ -348,6 +352,7 @@ def_poi_door: &poi_mapping_door
   - sliding
   - overhead
 
+# Emergency values , see https://taginfo.openstreetmap.org/keys/emergency#values
 def_poi_emergency: &poi_mapping_emergency
   - defibrillator
 
