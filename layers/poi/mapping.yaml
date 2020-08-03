@@ -342,7 +342,11 @@ def_poi_exhibit: &poi_mapping_exhibit
   - history
 
 def_poi_door: &poi_mapping_door
-  - door
+  - 'yes'
+  - 'no'
+  - hinged
+  - sliding
+  - overhead
 
 def_poi_emergency: &poi_mapping_emergency
   - defibrillator
