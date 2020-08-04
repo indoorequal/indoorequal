@@ -64,7 +64,7 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('bag','clothes', 'leather') THEN 'clothing_store'
         WHEN subclass IN ('swimming_area','swimming') THEN 'swimming'
         WHEN subclass IN ('castle','ruins') THEN 'castle'
-        when subclass IN ('bank', 'bureau_de_change') THEN 'bank'
+        when subclass IN ('bank', 'bureau_de_change', 'atm') THEN 'bank'
         WHEN mapping_key IN ('door', 'entrance') THEN 'entrance'
         WHEN mapping_key IN ('exhibit') THEN 'exhibit'
         WHEN mapping_key IN ('craft') THEN 'craft'
