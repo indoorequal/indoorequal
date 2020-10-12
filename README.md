@@ -2,7 +2,10 @@
 
 indoor= generate vector tiles of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t]. 
 
-The frontend part is located here: https://github.com/indoorequal/indoorequal.org
+Discover:
+
+- the frontend: https://github.com/indoorequal/indoorequal.org
+- the library to integrate indoor=: https://github.com/indoorequal/mapbox-gl-indoorequal
 
 indoor= is build with [openmaptiles-tools][omt-tools].
 
