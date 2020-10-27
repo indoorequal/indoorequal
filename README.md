@@ -9,6 +9,21 @@ Discover:
 
 indoor= is build with [openmaptiles-tools][omt-tools].
 
+## Development
+
+In development, you should disable tiles caching.
+
+Edit `docker-compose.override.yml`:
+
+    version: "2.3"
+    services:
+      postserve:
+        ports:
+        - "8090:8090"
+      postserve-cache:
+
+And follow the usage instructions.
+
 ## Usage
 
 To start the initial import of the planet:
@@ -25,6 +40,8 @@ To start a one-time update and invalidate the tile cache:
 To run the service in production with tiles caching:
 
     docker-compose up -d postserve postserve-cache
+
+The tiles will be available at http://localhost:8090/
 
 To generate a mbtiles file located at `data/tiles.mbtiles`
 
