@@ -8,6 +8,7 @@ CREATE TABLE osm_indoor_polygon (
     class character varying,
     level character varying,
     repeat_on character varying,
+    ref character varying,
     name character varying,
     name_en character varying,
     name_de character varying,

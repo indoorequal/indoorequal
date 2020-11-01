@@ -6,11 +6,11 @@ DROP MATERIALIZED VIEW IF EXISTS  osm_area_point CASCADE;
 CREATE MATERIALIZED VIEW osm_area_point AS (
     SELECT
         wp.osm_id, ST_PointOnSurface(wp.geometry) AS geometry,
+        wp.ref,
         wp.name, wp.name_en, wp.name_de,
-        ST_Area(wp.geometry) AS area,
         wp.level, wp.repeat_on
     FROM osm_indoor_polygon AS wp
-    WHERE wp.name <> '' AND NOT is_poi(wp.tags)
+    WHERE wp.name <> '' OR wp.ref <> '' AND NOT is_poi(wp.tags)
 );
 CREATE INDEX IF NOT EXISTS osm_area_point_geometry_idx ON osm_area_point USING gist (geometry);
 

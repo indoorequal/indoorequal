@@ -6,7 +6,7 @@ layer:
     to place text upon appear. The area must not have any POI tag to appear here.
   buffer_size: 4
   fields:
-    name: The OSM [`name`](http://wiki.openstreetmap.org/wiki/Key:name) value
+    name: The OSM [`name`](http://wiki.openstreetmap.org/wiki/Key:name) or [`ref`](http://wiki.openstreetmap.org/wiki/Key:ref) value
     name_en: English name `name:en` if available, otherwise `name`.
     name_de: German name `name:de` if available, otherwise `name` or `name:en`.
     level: The level of the feature
