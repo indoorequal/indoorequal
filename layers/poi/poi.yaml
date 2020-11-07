@@ -50,7 +50,7 @@ layer:
       values: [1]
     level:
       description: |
-          Original value of [`level`](http://wiki.openstreetmap.org/wiki/Key:level) tag.
+          The level of the POI.
     layer:
       description: |
           Original value of [`layer`](http://wiki.openstreetmap.org/wiki/Key:layer) tag.
