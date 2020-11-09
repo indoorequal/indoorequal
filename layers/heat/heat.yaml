@@ -1,0 +1,14 @@
+layer:
+  id: "heat"
+  requires: "area"
+  description:  |
+    This is the layer for locating places mapped indoors. This is useful for creating heat map on lower zooms.
+  buffer_size: 4
+  fields:
+    id: The feature ID
+  datasource:
+    geometry_field: geometry
+    query: (SELECT id, geometry FROM layer_heat(!bbox!, z(!scale_denominator!))) AS t
+schema:
+  - ./update_heat.sql
+  - ./layer.sql
