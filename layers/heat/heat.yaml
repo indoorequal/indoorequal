@@ -8,7 +8,7 @@ layer:
     id: The feature ID
   datasource:
     geometry_field: geometry
-    query: (SELECT id, geometry FROM layer_heat(!bbox!)) AS t
+    query: (SELECT id, geometry FROM layer_heat(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ./update_heat.sql
   - ./layer.sql
