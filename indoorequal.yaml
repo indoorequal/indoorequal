@@ -6,7 +6,7 @@ tileset:
     - layers/poi/poi.yaml
     - layers/heat/heat.yaml
   name: indoor=
-  version: 0.1.1
+  version: 0.2.0
   id: indoorequal
   description: "An indoor viewer based on OpenStreetMap data"
   attribution: '<a href="https://indoorequal.org/" target="_blank">&copy; indoor=</a> <a href="https://www.openmaptiles.org/" target="_blank">&copy; OpenMapTiles</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">&copy; OpenStreetMap contributors</a>'
