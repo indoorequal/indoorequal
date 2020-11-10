@@ -10,7 +10,7 @@ CREATE MATERIALIZED VIEW osm_area_point AS (
         wp.name, wp.name_en, wp.name_de,
         wp.level, wp.repeat_on
     FROM osm_indoor_polygon AS wp
-    WHERE wp.name <> '' OR wp.ref <> '' AND NOT is_poi(wp.tags)
+    WHERE (wp.name <> '' OR wp.ref <> '') AND NOT is_poi(wp.tags)
 );
 CREATE INDEX IF NOT EXISTS osm_area_point_geometry_idx ON osm_area_point USING gist (geometry);
 
