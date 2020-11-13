@@ -7,6 +7,7 @@ CREATE MATERIALIZED VIEW osm_area_heatpoint AS (
     SELECT
         wp.osm_id, ST_PointOnSurface(wp.geometry) AS geometry
     FROM osm_indoor_polygon AS wp
+    WHERE class NOT IN ('level')
 );
 CREATE INDEX IF NOT EXISTS osm_area_heatpoint_geometry_idx ON osm_area_heatpoint USING gist (geometry);
 
