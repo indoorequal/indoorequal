@@ -488,6 +488,7 @@ build-test-pbf: init-dirs
 expire-tiles:
 	@echo "Expiring tiles"
 	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/expire_tiles.tiles
+	@./script/expire_tiles_zoom
 	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/expire_tiles.tiles
 	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/expire_tiles.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
 	@rm -rf data/expire_tiles/
