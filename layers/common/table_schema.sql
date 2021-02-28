@@ -6,6 +6,7 @@ CREATE TABLE osm_indoor_polygon (
     id integer NOT NULL,
     osm_id bigint NOT NULL,
     class character varying,
+    subclass character varying,
     level character varying,
     repeat_on character varying,
     ref character varying,

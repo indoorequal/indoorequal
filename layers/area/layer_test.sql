@@ -1,5 +1,5 @@
 BEGIN;
-SELECT plan(5);
+SELECT plan(6);
 
 INSERT INTO osm_indoor_polygon
   (id, osm_id, name, class, geometry, level, access, tags)
@@ -47,6 +47,16 @@ INSERT INTO osm_indoor_polygon
 SELECT set_eq(
   'SELECT id FROM layer_indoor(ST_GeomFromText(''POLYGON((0 0.5, 0 2, 2 3, 2 0.5, 0 0.5))'', 3857), 17)',
   ARRAY[-1, 2, 4]
+);
+
+INSERT INTO osm_indoor_polygon
+  (id, osm_id, name, class, subclass, geometry, level)
+  VALUES
+  (1, 626844376::bigint, 'test', 'room', 'class', ST_GeomFromText('POLYGON((4 4, 4 5, 5 5, 5 4, 4 4))', 3857), '1');
+
+SELECT set_eq(
+  'SELECT subclass FROM layer_indoor(ST_GeomFromText(''POLYGON((3 3, 3 5, 5 6, 5 3, 3 3))'', 3857), 17)',
+  ARRAY['class']
 );
 
 SELECT * FROM finish();

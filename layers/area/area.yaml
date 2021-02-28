@@ -6,7 +6,7 @@ layer:
   fields:
     class:
       description: |
-        The value of the [indoor tag](https://wiki.openstreetmap.org/wiki/Key:indoor)
+        The value of the [indoor tag](https://wiki.openstreetmap.org/wiki/Key:indoor).
       values:
       - area
       - column
@@ -15,12 +15,13 @@ layer:
       - platform
       - room
       - wall
-    is_poi: True if this a POI
-    level: The level of the area
+    subclass: The value of the [room tag](https://wiki.openstreetmap.org/wiki/Key:room).
+    is_poi: True if this a POI.
+    level: The level of the area.
     access: The original value of the [access tag](https://wiki.openstreetmap.org/wiki/Key:access).
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, class, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, class, subclass, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ../common/repeat_on.sql
   - ../common/is_poi.sql

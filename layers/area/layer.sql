@@ -4,13 +4,14 @@
 DROP FUNCTION IF EXISTS layer_indoor(geometry, integer, numeric);
 DROP FUNCTION IF EXISTS layer_indoor(geometry, integer);
 CREATE FUNCTION layer_indoor(bbox geometry, zoom_level integer)
-RETURNS TABLE(id integer, geometry geometry, class text, is_poi boolean, level numeric, access text) AS $$
+RETURNS TABLE(id integer, geometry geometry, class text, subclass text, is_poi boolean, level numeric, access text) AS $$
   WITH
   areas AS (
     SELECT
           id,
           geometry,
           class,
+          subclass,
           unnest(array_cat(
                   string_to_array(level, ';'),
                   repeat_on_to_array(repeat_on)
@@ -19,12 +20,12 @@ RETURNS TABLE(id integer, geometry geometry, class text, is_poi boolean, level n
           tags
      FROM (
         -- etldoc: osm_indoor_polygon -> layer_indoor:z17_
-        SELECT id, geometry, class, level, repeat_on, access, tags
+        SELECT id, geometry, class, subclass, level, repeat_on, access, tags
         FROM osm_indoor_polygon
         WHERE zoom_level >= 17 AND geometry && bbox
         UNION ALL
         -- etldoc: osm_indoor_linestring -> layer_indoor:z17_
-        SELECT id, geometry, class, level, repeat_on, NULL as access, NULL AS tags
+        SELECT id, geometry, class, NULL as subclass, level, repeat_on, NULL as access, NULL AS tags
         FROM osm_indoor_linestring
         WHERE zoom_level >= 17 AND geometry && bbox
      ) AS indoor_all
@@ -37,20 +38,20 @@ RETURNS TABLE(id integer, geometry geometry, class text, is_poi boolean, level n
 
    SELECT *
    FROM (
-     SELECT -1 AS id, ST_UNION(geometry) AS geometry, 'area' as class, FALSE AS is_poi, level, access
+     SELECT -1 AS id, ST_UNION(geometry) AS geometry, 'area' as class, NULL as subclass, FALSE AS is_poi, level, access
      FROM unwalled_areas
      WHERE NOT is_poi(tags)
      GROUP BY level, access
 
      UNION ALL
 
-     SELECT id, geometry, class, TRUE AS is_poi, level, access
+     SELECT id, geometry, class, subclass, TRUE AS is_poi, level, access
      FROM unwalled_areas
      WHERE is_poi(tags)
 
      UNION ALL
 
-     SELECT id, geometry, class, is_poi(tags) AS is_poi, level, access
+     SELECT id, geometry, class, subclass, is_poi(tags) AS is_poi, level, access
      FROM areas
      WHERE class NOT IN ('area', 'corridor', 'platform')
    ) AS indoor_merged;

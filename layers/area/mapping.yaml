@@ -27,6 +27,9 @@ tables:
       type: id
     - name: class
       type: mapping_value
+    - name: subclass
+      type: string
+      key: room
     - name: geometry
       type: geometry
     - name: level
