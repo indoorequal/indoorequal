@@ -6,7 +6,7 @@ Discover:
 
 - the frontend: https://github.com/indoorequal/indoorequal.org
 - the library to integrate indoor=: https://github.com/indoorequal/mapbox-gl-indoorequal
-- the vector tile schema: https://indoorequal.com/schema
+- the vector tile schema: https://indoorequal.com/doc/schema
 
 indoor= is build with [openmaptiles-tools][omt-tools].
 
