@@ -1,5 +1,5 @@
-DROP TRIGGER IF EXISTS trigger_flag_point ON osm_indoor_polygon;
-DROP TRIGGER IF EXISTS trigger_refresh ON area_heatpoint.updates;
+DROP TRIGGER IF EXISTS trigger_flag_heat ON osm_indoor_polygon;
+DROP TRIGGER IF EXISTS trigger_refresh_heat ON area_heatpoint.updates;
 
 DROP MATERIALIZED VIEW IF EXISTS osm_area_heatpoint CASCADE;
 
@@ -34,12 +34,12 @@ CREATE OR REPLACE FUNCTION area_heatpoint.refresh() RETURNS trigger AS
   $BODY$
 language plpgsql;
 
-CREATE TRIGGER trigger_flag_point
+CREATE TRIGGER trigger_flag_heat
     AFTER INSERT OR UPDATE OR DELETE ON osm_indoor_polygon
     FOR EACH STATEMENT
     EXECUTE PROCEDURE area_heatpoint.flag();
 
-CREATE CONSTRAINT TRIGGER trigger_refresh
+CREATE CONSTRAINT TRIGGER trigger_refresh_heat
     AFTER INSERT ON area_heatpoint.updates
     INITIALLY DEFERRED
     FOR EACH ROW
