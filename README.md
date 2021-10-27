@@ -1,6 +1,6 @@
 # indoor=
 
-indoor= generate vector tiles of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t]. 
+indoor= generate vector tiles of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t].
 
 Discover:
 
@@ -38,18 +38,25 @@ To start a one-time update and invalidate the tile cache:
 
     ./script/update
 
-To run the service in production with tiles caching:
-
-    docker-compose up -d postserve postserve-cache
-
-The tiles will be available at http://localhost:8090/
-
 To generate a mbtiles file located at `data/tiles.mbtiles`
 
     make generate-dc-config
     make generate-tiles
 
 Warning: Depending of the AREA, it can takes a lot of time to generate the mbtiles.
+
+
+## Running in production
+
+To run the service in production with tiles caching:
+
+    docker-compose up -d postserve postserve-cache
+
+The tiles will be available at http://localhost:8090/
+
+To serve the tiles on another host than `localhost:8090`, for instance `indoorequal.org`, update the `postserve` service and add the `--serve` command line argument with the host.
+
+    postserve --serve=https://indoorequal.org indoorequal.yaml
 
 ## License
 
