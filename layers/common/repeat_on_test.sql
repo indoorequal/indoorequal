@@ -1,11 +1,20 @@
 BEGIN;
-SELECT plan(9);
+SELECT plan(11);
 
 SELECT is(
     repeat_on_to_array('1'),
     ARRAY[ '1' ]
 );
 
+SELECT is(
+    repeat_on_to_array('1,2'),
+    ARRAY[]::text[]
+);
+
+SELECT is(
+    repeat_on_to_array('HELLO'),
+    ARRAY[]::text[]
+);
 
 SELECT is(
     repeat_on_to_array('1.5'),
