@@ -32,7 +32,7 @@ RETURNS TABLE(osm_id bigint, id text, geometry geometry, name text, name_en text
         END AS subclass,
         agg_stop,
         NULLIF(layer, 0) AS layer,
-        unnest(array_cat(string_to_array(level, ';'), repeat_on_to_array(repeat_on)))::numeric AS level,
+        unnest(expand_levels(level, repeat_on)) AS level,
         CASE WHEN indoor=TRUE THEN 1 ELSE NULL END as indoor,
         row_number() OVER (
             PARTITION BY LabelGrid(geometry, 100 * pixel_width)

@@ -67,6 +67,7 @@ layer:
     query: (SELECT osm_id, id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
 schema:
   - ../common/repeat_on.sql
+  - ../common/level.sql
   - ./public_transport_stop_type.sql
   - ./update_poi_polygon.sql
   - ./update_poi_point.sql

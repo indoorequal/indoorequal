@@ -12,10 +12,7 @@ RETURNS TABLE(id integer, geometry geometry, class text, subclass text, is_poi b
           geometry,
           class,
           subclass,
-          unnest(array_cat(
-                  string_to_array(level, ';'),
-                  repeat_on_to_array(repeat_on)
-          ))::numeric as level,
+          unnest(expand_levels(level, repeat_on)) as level,
           access,
           tags
      FROM (
