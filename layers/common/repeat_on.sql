@@ -1,5 +1,5 @@
-DROP FUNCTION IF EXISTS repeat_on_to_array(repeat_on text);
-CREATE FUNCTION repeat_on_to_array(repeat_on TEXT) RETURNS text[] AS $$
+CREATE OR REPLACE FUNCTION repeat_on_to_array(repeat_on TEXT)
+RETURNS text[] AS $$
   SELECT array(
     SELECT generate_series(serie[1]::numeric, serie[2]::numeric) FROM (
       SELECT CASE
