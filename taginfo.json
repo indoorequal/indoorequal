@@ -12,13 +12,1362 @@
   },
   "tags": [
     {
-      "key": "indoor"
+      "key": "indoor",
+      "value": "level"
+    },
+    {
+      "key": "indoor",
+      "value": "area"
+    },
+    {
+      "key": "indoor",
+      "value": "room"
+    },
+    {
+      "key": "indoor",
+      "value": "corridor"
+    },
+    {
+      "key": "indoor",
+      "value": "column"
+    },
+    {
+      "key": "indoor",
+      "value": "wall"
     },
     {
       "key": "level"
     },
     {
       "key": "repeat_on"
+    },
+    {
+      "key": "public_transport",
+      "value": "platform"
+    },
+    {
+      "key": "ref"
+    },
+    {
+      "key": "room"
+    },
+    {
+      "key": "name"
+    },
+    {
+      "key": "name:en"
+    },
+    {
+      "key": "name:de"
+    },
+    {
+      "key": "access"
+    },
+    {
+      "key": "highway",
+      "value": "steps"
+    },
+    {
+      "key": "conveying"
+    },
+    {
+      "key": "opening_hours"
+    },
+    {
+      "key": "opening_hours:url"
+    },
+    {
+      "key": "website"
+    },
+    {
+      "key": "contact:website"
+    },
+    {
+      "key": "facebook"
+    },
+    {
+      "key": "contact:facebook"
+    },
+    {
+      "key": "phone"
+    },
+    {
+      "key": "contact:phone"
+    },
+    {
+      "key": "mapillary"
+    },
+    {
+      "key": "wheelchair"
+    },
+    {
+      "key": "vending"
+    },
+    {
+      "key": "station",
+      "value": "subway",
+      "description": "Used to identify subway stations, where railway=station is also set."
+    },
+    {
+      "key": "funicular",
+      "value": "yes",
+      "description": "Used to identify aerialway halts, where aerialway=station is also set."
+    },
+    {
+      "key": "information"
+    },
+    {
+      "key": "uic_ref"
+    },
+    {
+      "key": "religion"
+    },
+    {
+      "key": "layer"
+    },
+    {
+      "key": "emergency",
+      "value": "defibrillator"
+    },
+    {
+      "key": "railway",
+      "value": "halt"
+    },
+    {
+      "key": "railway",
+      "value": "station"
+    },
+    {
+      "key": "railway",
+      "value": "subway_entrance"
+    },
+    {
+      "key": "railway",
+      "value": "train_station_entrance"
+    },
+    {
+      "key": "railway",
+      "value": "tram_stop"
+    },
+    {
+      "key": "door",
+      "value": "yes"
+    },
+    {
+      "key": "door",
+      "value": "no"
+    },
+    {
+      "key": "door",
+      "value": "hinged"
+    },
+    {
+      "key": "door",
+      "value": "sliding"
+    },
+    {
+      "key": "door",
+      "value": "overhead"
+    },
+    {
+      "key": "tourism",
+      "value": "alpine_hut"
+    },
+    {
+      "key": "tourism",
+      "value": "aquarium"
+    },
+    {
+      "key": "tourism",
+      "value": "artwork"
+    },
+    {
+      "key": "tourism",
+      "value": "attraction"
+    },
+    {
+      "key": "tourism",
+      "value": "bed_and_breakfast"
+    },
+    {
+      "key": "tourism",
+      "value": "camp_site"
+    },
+    {
+      "key": "tourism",
+      "value": "caravan_site"
+    },
+    {
+      "key": "tourism",
+      "value": "chalet"
+    },
+    {
+      "key": "tourism",
+      "value": "gallery"
+    },
+    {
+      "key": "tourism",
+      "value": "guest_house"
+    },
+    {
+      "key": "tourism",
+      "value": "hostel"
+    },
+    {
+      "key": "tourism",
+      "value": "hotel"
+    },
+    {
+      "key": "tourism",
+      "value": "information"
+    },
+    {
+      "key": "tourism",
+      "value": "motel"
+    },
+    {
+      "key": "tourism",
+      "value": "museum"
+    },
+    {
+      "key": "tourism",
+      "value": "picnic_site"
+    },
+    {
+      "key": "tourism",
+      "value": "theme_park"
+    },
+    {
+      "key": "tourism",
+      "value": "viewpoint"
+    },
+    {
+      "key": "tourism",
+      "value": "zoo"
+    },
+    {
+      "key": "landuse",
+      "value": "basin"
+    },
+    {
+      "key": "landuse",
+      "value": "brownfield"
+    },
+    {
+      "key": "landuse",
+      "value": "cemetery"
+    },
+    {
+      "key": "landuse",
+      "value": "reservoir"
+    },
+    {
+      "key": "landuse",
+      "value": "winter_sports"
+    },
+    {
+      "key": "barrier",
+      "value": "bollard"
+    },
+    {
+      "key": "barrier",
+      "value": "border_control"
+    },
+    {
+      "key": "barrier",
+      "value": "cycle_barrier"
+    },
+    {
+      "key": "barrier",
+      "value": "gate"
+    },
+    {
+      "key": "barrier",
+      "value": "lift_gate"
+    },
+    {
+      "key": "barrier",
+      "value": "sally_port"
+    },
+    {
+      "key": "barrier",
+      "value": "stile"
+    },
+    {
+      "key": "barrier",
+      "value": "toll_booth"
+    },
+    {
+      "key": "entrance",
+      "value": "yes"
+    },
+    {
+      "key": "entrance",
+      "value": "main"
+    },
+    {
+      "key": "entrance",
+      "value": "staircase"
+    },
+    {
+      "key": "entrance",
+      "value": "home"
+    },
+    {
+      "key": "entrance",
+      "value": "service"
+    },
+    {
+      "key": "entrance",
+      "value": "emergency"
+    },
+    {
+      "key": "entrance",
+      "value": "exit"
+    },
+    {
+      "key": "entrance",
+      "value": "shop"
+    },
+    {
+      "key": "entrance",
+      "value": "building"
+    },
+    {
+      "key": "aerialway",
+      "value": "station"
+    },
+    {
+      "key": "exhibit",
+      "value": "artwork"
+    },
+    {
+      "key": "exhibit",
+      "value": "history"
+    },
+    {
+      "key": "leisure",
+      "value": "dog_park"
+    },
+    {
+      "key": "leisure",
+      "value": "escape_game"
+    },
+    {
+      "key": "leisure",
+      "value": "garden"
+    },
+    {
+      "key": "leisure",
+      "value": "golf_course"
+    },
+    {
+      "key": "leisure",
+      "value": "ice_rink"
+    },
+    {
+      "key": "leisure",
+      "value": "hackerspace"
+    },
+    {
+      "key": "leisure",
+      "value": "marina"
+    },
+    {
+      "key": "leisure",
+      "value": "miniature_golf"
+    },
+    {
+      "key": "leisure",
+      "value": "park"
+    },
+    {
+      "key": "leisure",
+      "value": "pitch"
+    },
+    {
+      "key": "leisure",
+      "value": "playground"
+    },
+    {
+      "key": "leisure",
+      "value": "sports_centre"
+    },
+    {
+      "key": "leisure",
+      "value": "stadium"
+    },
+    {
+      "key": "leisure",
+      "value": "swimming_area"
+    },
+    {
+      "key": "leisure",
+      "value": "swimming_pool"
+    },
+    {
+      "key": "leisure",
+      "value": "water_park"
+    },
+    {
+      "key": "shop",
+      "value": "leather"
+    },
+    {
+      "key": "shop",
+      "value": "variety_store"
+    },
+    {
+      "key": "shop",
+      "value": "fashion_accessories"
+    },
+    {
+      "key": "shop",
+      "value": "houseware"
+    },
+    {
+      "key": "shop",
+      "value": "seafood"
+    },
+    {
+      "key": "shop",
+      "value": "pastry"
+    },
+    {
+      "key": "shop",
+      "value": "cheese"
+    },
+    {
+      "key": "shop",
+      "value": "kitchen"
+    },
+    {
+      "key": "shop",
+      "value": "ticket"
+    },
+    {
+      "key": "shop",
+      "value": "frame"
+    },
+    {
+      "key": "shop",
+      "value": "tea"
+    },
+    {
+      "key": "shop",
+      "value": "locksmith"
+    },
+    {
+      "key": "shop",
+      "value": "accessories"
+    },
+    {
+      "key": "shop",
+      "value": "alcohol"
+    },
+    {
+      "key": "shop",
+      "value": "antiques"
+    },
+    {
+      "key": "shop",
+      "value": "art"
+    },
+    {
+      "key": "shop",
+      "value": "bag"
+    },
+    {
+      "key": "shop",
+      "value": "bakery"
+    },
+    {
+      "key": "shop",
+      "value": "beauty"
+    },
+    {
+      "key": "shop",
+      "value": "bed"
+    },
+    {
+      "key": "shop",
+      "value": "beverages"
+    },
+    {
+      "key": "shop",
+      "value": "bicycle"
+    },
+    {
+      "key": "shop",
+      "value": "books"
+    },
+    {
+      "key": "shop",
+      "value": "boutique"
+    },
+    {
+      "key": "shop",
+      "value": "butcher"
+    },
+    {
+      "key": "shop",
+      "value": "camera"
+    },
+    {
+      "key": "shop",
+      "value": "car"
+    },
+    {
+      "key": "shop",
+      "value": "car_repair"
+    },
+    {
+      "key": "shop",
+      "value": "car_parts"
+    },
+    {
+      "key": "shop",
+      "value": "carpet"
+    },
+    {
+      "key": "shop",
+      "value": "charity"
+    },
+    {
+      "key": "shop",
+      "value": "chemist"
+    },
+    {
+      "key": "shop",
+      "value": "chocolate"
+    },
+    {
+      "key": "shop",
+      "value": "clothes"
+    },
+    {
+      "key": "shop",
+      "value": "coffee"
+    },
+    {
+      "key": "shop",
+      "value": "computer"
+    },
+    {
+      "key": "shop",
+      "value": "confectionery"
+    },
+    {
+      "key": "shop",
+      "value": "convenience"
+    },
+    {
+      "key": "shop",
+      "value": "copyshop"
+    },
+    {
+      "key": "shop",
+      "value": "cosmetics"
+    },
+    {
+      "key": "shop",
+      "value": "deli"
+    },
+    {
+      "key": "shop",
+      "value": "delicatessen"
+    },
+    {
+      "key": "shop",
+      "value": "department_store"
+    },
+    {
+      "key": "shop",
+      "value": "doityourself"
+    },
+    {
+      "key": "shop",
+      "value": "dry_cleaning"
+    },
+    {
+      "key": "shop",
+      "value": "electronics"
+    },
+    {
+      "key": "shop",
+      "value": "erotic"
+    },
+    {
+      "key": "shop",
+      "value": "fabric"
+    },
+    {
+      "key": "shop",
+      "value": "florist"
+    },
+    {
+      "key": "shop",
+      "value": "frozen_food"
+    },
+    {
+      "key": "shop",
+      "value": "furniture"
+    },
+    {
+      "key": "shop",
+      "value": "garden_centre"
+    },
+    {
+      "key": "shop",
+      "value": "general"
+    },
+    {
+      "key": "shop",
+      "value": "gift"
+    },
+    {
+      "key": "shop",
+      "value": "greengrocer"
+    },
+    {
+      "key": "shop",
+      "value": "hairdresser"
+    },
+    {
+      "key": "shop",
+      "value": "hardware"
+    },
+    {
+      "key": "shop",
+      "value": "hearing_aids"
+    },
+    {
+      "key": "shop",
+      "value": "hifi"
+    },
+    {
+      "key": "shop",
+      "value": "ice_cream"
+    },
+    {
+      "key": "shop",
+      "value": "interior_decoration"
+    },
+    {
+      "key": "shop",
+      "value": "jewelry"
+    },
+    {
+      "key": "shop",
+      "value": "kiosk"
+    },
+    {
+      "key": "shop",
+      "value": "lamps"
+    },
+    {
+      "key": "shop",
+      "value": "laundry"
+    },
+    {
+      "key": "shop",
+      "value": "mall"
+    },
+    {
+      "key": "shop",
+      "value": "massage"
+    },
+    {
+      "key": "shop",
+      "value": "mobile_phone"
+    },
+    {
+      "key": "shop",
+      "value": "motorcycle"
+    },
+    {
+      "key": "shop",
+      "value": "music"
+    },
+    {
+      "key": "shop",
+      "value": "musical_instrument"
+    },
+    {
+      "key": "shop",
+      "value": "newsagent"
+    },
+    {
+      "key": "shop",
+      "value": "optician"
+    },
+    {
+      "key": "shop",
+      "value": "outdoor"
+    },
+    {
+      "key": "shop",
+      "value": "perfume"
+    },
+    {
+      "key": "shop",
+      "value": "perfumery"
+    },
+    {
+      "key": "shop",
+      "value": "pet"
+    },
+    {
+      "key": "shop",
+      "value": "photo"
+    },
+    {
+      "key": "shop",
+      "value": "second_hand"
+    },
+    {
+      "key": "shop",
+      "value": "shoes"
+    },
+    {
+      "key": "shop",
+      "value": "sports"
+    },
+    {
+      "key": "shop",
+      "value": "stationery"
+    },
+    {
+      "key": "shop",
+      "value": "supermarket"
+    },
+    {
+      "key": "shop",
+      "value": "tailor"
+    },
+    {
+      "key": "shop",
+      "value": "tattoo"
+    },
+    {
+      "key": "shop",
+      "value": "ticket"
+    },
+    {
+      "key": "shop",
+      "value": "tobacco"
+    },
+    {
+      "key": "shop",
+      "value": "toys"
+    },
+    {
+      "key": "shop",
+      "value": "travel_agency"
+    },
+    {
+      "key": "shop",
+      "value": "video"
+    },
+    {
+      "key": "shop",
+      "value": "video_games"
+    },
+    {
+      "key": "shop",
+      "value": "watches"
+    },
+    {
+      "key": "shop",
+      "value": "weapons"
+    },
+    {
+      "key": "shop",
+      "value": "wholesale"
+    },
+    {
+      "key": "shop",
+      "value": "wine"
+    },
+    {
+      "key": "sport",
+      "value": "american_football"
+    },
+    {
+      "key": "sport",
+      "value": "archery"
+    },
+    {
+      "key": "sport",
+      "value": "athletics"
+    },
+    {
+      "key": "sport",
+      "value": "australian_football"
+    },
+    {
+      "key": "sport",
+      "value": "badminton"
+    },
+    {
+      "key": "sport",
+      "value": "baseball"
+    },
+    {
+      "key": "sport",
+      "value": "basketball"
+    },
+    {
+      "key": "sport",
+      "value": "beachvolleyball"
+    },
+    {
+      "key": "sport",
+      "value": "billiards"
+    },
+    {
+      "key": "sport",
+      "value": "bmx"
+    },
+    {
+      "key": "sport",
+      "value": "boules"
+    },
+    {
+      "key": "sport",
+      "value": "bowls"
+    },
+    {
+      "key": "sport",
+      "value": "boxing"
+    },
+    {
+      "key": "sport",
+      "value": "canadian_football"
+    },
+    {
+      "key": "sport",
+      "value": "canoe"
+    },
+    {
+      "key": "sport",
+      "value": "chess"
+    },
+    {
+      "key": "sport",
+      "value": "climbing"
+    },
+    {
+      "key": "sport",
+      "value": "climbing_adventure"
+    },
+    {
+      "key": "sport",
+      "value": "cricket"
+    },
+    {
+      "key": "sport",
+      "value": "cricket_nets"
+    },
+    {
+      "key": "sport",
+      "value": "croquet"
+    },
+    {
+      "key": "sport",
+      "value": "curling"
+    },
+    {
+      "key": "sport",
+      "value": "cycling"
+    },
+    {
+      "key": "sport",
+      "value": "disc_golf"
+    },
+    {
+      "key": "sport",
+      "value": "diving"
+    },
+    {
+      "key": "sport",
+      "value": "dog_racing"
+    },
+    {
+      "key": "sport",
+      "value": "equestrian"
+    },
+    {
+      "key": "sport",
+      "value": "fatsal"
+    },
+    {
+      "key": "sport",
+      "value": "field_hockey"
+    },
+    {
+      "key": "sport",
+      "value": "free_flying"
+    },
+    {
+      "key": "sport",
+      "value": "gaelic_games"
+    },
+    {
+      "key": "sport",
+      "value": "golf"
+    },
+    {
+      "key": "sport",
+      "value": "gymnastics"
+    },
+    {
+      "key": "sport",
+      "value": "handball"
+    },
+    {
+      "key": "sport",
+      "value": "hockey"
+    },
+    {
+      "key": "sport",
+      "value": "horse_racing"
+    },
+    {
+      "key": "sport",
+      "value": "horseshoes"
+    },
+    {
+      "key": "sport",
+      "value": "ice_hockey"
+    },
+    {
+      "key": "sport",
+      "value": "ice_stock"
+    },
+    {
+      "key": "sport",
+      "value": "judo"
+    },
+    {
+      "key": "sport",
+      "value": "karting"
+    },
+    {
+      "key": "sport",
+      "value": "korfball"
+    },
+    {
+      "key": "sport",
+      "value": "long_jump"
+    },
+    {
+      "key": "sport",
+      "value": "model_aerodrome"
+    },
+    {
+      "key": "sport",
+      "value": "motocross"
+    },
+    {
+      "key": "sport",
+      "value": "motor"
+    },
+    {
+      "key": "sport",
+      "value": "multi"
+    },
+    {
+      "key": "sport",
+      "value": "netball"
+    },
+    {
+      "key": "sport",
+      "value": "orienteering"
+    },
+    {
+      "key": "sport",
+      "value": "paddle_tennis"
+    },
+    {
+      "key": "sport",
+      "value": "paintball"
+    },
+    {
+      "key": "sport",
+      "value": "paragliding"
+    },
+    {
+      "key": "sport",
+      "value": "pelota"
+    },
+    {
+      "key": "sport",
+      "value": "racquet"
+    },
+    {
+      "key": "sport",
+      "value": "rc_car"
+    },
+    {
+      "key": "sport",
+      "value": "rowing"
+    },
+    {
+      "key": "sport",
+      "value": "rugby"
+    },
+    {
+      "key": "sport",
+      "value": "rugby_league"
+    },
+    {
+      "key": "sport",
+      "value": "rugby_union"
+    },
+    {
+      "key": "sport",
+      "value": "running"
+    },
+    {
+      "key": "sport",
+      "value": "sailing"
+    },
+    {
+      "key": "sport",
+      "value": "scuba_diving"
+    },
+    {
+      "key": "sport",
+      "value": "shooting"
+    },
+    {
+      "key": "sport",
+      "value": "shooting_range"
+    },
+    {
+      "key": "sport",
+      "value": "skateboard"
+    },
+    {
+      "key": "sport",
+      "value": "skating"
+    },
+    {
+      "key": "sport",
+      "value": "skiing"
+    },
+    {
+      "key": "sport",
+      "value": "soccer"
+    },
+    {
+      "key": "sport",
+      "value": "surfing"
+    },
+    {
+      "key": "sport",
+      "value": "swimming"
+    },
+    {
+      "key": "sport",
+      "value": "table_soccer"
+    },
+    {
+      "key": "sport",
+      "value": "table_tennis"
+    },
+    {
+      "key": "sport",
+      "value": "team_handball"
+    },
+    {
+      "key": "sport",
+      "value": "tennis"
+    },
+    {
+      "key": "sport",
+      "value": "toboggan"
+    },
+    {
+      "key": "sport",
+      "value": "volleyball"
+    },
+    {
+      "key": "sport",
+      "value": "water_ski"
+    },
+    {
+      "key": "sport",
+      "value": "yoga"
+    },
+    {
+      "key": "office",
+      "value": "government"
+    },
+    {
+      "key": "amenity",
+      "value": "atm"
+    },
+    {
+      "key": "amenity",
+      "value": "car_rental"
+    },
+    {
+      "key": "amenity",
+      "value": "piano"
+    },
+    {
+      "key": "amenity",
+      "value": "bureau_de_change"
+    },
+    {
+      "key": "amenity",
+      "value": "vending_machine"
+    },
+    {
+      "key": "amenity",
+      "value": "arts_centre"
+    },
+    {
+      "key": "amenity",
+      "value": "bank"
+    },
+    {
+      "key": "amenity",
+      "value": "bar"
+    },
+    {
+      "key": "amenity",
+      "value": "bbq"
+    },
+    {
+      "key": "amenity",
+      "value": "bicycle_parking"
+    },
+    {
+      "key": "amenity",
+      "value": "bicycle_rental"
+    },
+    {
+      "key": "amenity",
+      "value": "biergarten"
+    },
+    {
+      "key": "amenity",
+      "value": "bus_station"
+    },
+    {
+      "key": "amenity",
+      "value": "cafe"
+    },
+    {
+      "key": "amenity",
+      "value": "cinema"
+    },
+    {
+      "key": "amenity",
+      "value": "clinic"
+    },
+    {
+      "key": "amenity",
+      "value": "college"
+    },
+    {
+      "key": "amenity",
+      "value": "community_centre"
+    },
+    {
+      "key": "amenity",
+      "value": "courthouse"
+    },
+    {
+      "key": "amenity",
+      "value": "dentist"
+    },
+    {
+      "key": "amenity",
+      "value": "doctors"
+    },
+    {
+      "key": "amenity",
+      "value": "embassy"
+    },
+    {
+      "key": "amenity",
+      "value": "fast_food"
+    },
+    {
+      "key": "amenity",
+      "value": "ferry_terminal"
+    },
+    {
+      "key": "amenity",
+      "value": "fire_station"
+    },
+    {
+      "key": "amenity",
+      "value": "food_court"
+    },
+    {
+      "key": "amenity",
+      "value": "fuel"
+    },
+    {
+      "key": "amenity",
+      "value": "grave_yard"
+    },
+    {
+      "key": "amenity",
+      "value": "hospital"
+    },
+    {
+      "key": "amenity",
+      "value": "ice_cream"
+    },
+    {
+      "key": "amenity",
+      "value": "kindergarten"
+    },
+    {
+      "key": "amenity",
+      "value": "library"
+    },
+    {
+      "key": "amenity",
+      "value": "marketplace"
+    },
+    {
+      "key": "amenity",
+      "value": "motorcycle_parking"
+    },
+    {
+      "key": "amenity",
+      "value": "nightclub"
+    },
+    {
+      "key": "amenity",
+      "value": "nursing_home"
+    },
+    {
+      "key": "amenity",
+      "value": "parking"
+    },
+    {
+      "key": "amenity",
+      "value": "pharmacy"
+    },
+    {
+      "key": "amenity",
+      "value": "place_of_worship"
+    },
+    {
+      "key": "amenity",
+      "value": "police"
+    },
+    {
+      "key": "amenity",
+      "value": "post_box"
+    },
+    {
+      "key": "amenity",
+      "value": "post_office"
+    },
+    {
+      "key": "amenity",
+      "value": "prison"
+    },
+    {
+      "key": "amenity",
+      "value": "pub"
+    },
+    {
+      "key": "amenity",
+      "value": "public_building"
+    },
+    {
+      "key": "amenity",
+      "value": "recycling"
+    },
+    {
+      "key": "amenity",
+      "value": "restaurant"
+    },
+    {
+      "key": "amenity",
+      "value": "school"
+    },
+    {
+      "key": "amenity",
+      "value": "shelter"
+    },
+    {
+      "key": "amenity",
+      "value": "swimming_pool"
+    },
+    {
+      "key": "amenity",
+      "value": "taxi"
+    },
+    {
+      "key": "amenity",
+      "value": "telephone"
+    },
+    {
+      "key": "amenity",
+      "value": "theatre"
+    },
+    {
+      "key": "amenity",
+      "value": "toilets"
+    },
+    {
+      "key": "amenity",
+      "value": "townhall"
+    },
+    {
+      "key": "amenity",
+      "value": "university"
+    },
+    {
+      "key": "amenity",
+      "value": "veterinary"
+    },
+    {
+      "key": "amenity",
+      "value": "waste_basket"
+    },
+    {
+      "key": "craft",
+      "value": "caterer"
+    },
+    {
+      "key": "craft",
+      "value": "shoemaker"
+    },
+    {
+      "key": "craft",
+      "value": "tailor"
+    },
+    {
+      "key": "craft",
+      "value": "brewery"
+    },
+    {
+      "key": "craft",
+      "value": "confectionery"
+    },
+    {
+      "key": "craft",
+      "value": "dressmaker"
+    },
+    {
+      "key": "craft",
+      "value": "electronics_repair"
+    },
+    {
+      "key": "highway",
+      "value": "elevator"
     }
   ]
 }
