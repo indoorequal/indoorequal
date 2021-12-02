@@ -1,5 +1,5 @@
 BEGIN;
-SELECT plan(9);
+SELECT plan(10);
 
 SELECT ok(
     is_poi('shop=>supermarket'::hstore)
@@ -31,6 +31,10 @@ SELECT ok(
 
 SELECT ok(
     is_poi('exhibit=>artwork'::hstore)
+);
+
+SELECT ok(
+    is_poi('door=>yes'::hstore)
 );
 
 SELECT ok(
