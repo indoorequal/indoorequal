@@ -1,0 +1,37 @@
+version: "2.3"
+
+services:
+  postgres:
+    image: indoorequal/postgis
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+  import-table-schema:
+    image: indoorequal/postgis
+    command: psql --host=postgres --username postgres postgres -f /tests/layers/common/table_schema.sql
+    environment:
+      PGPASSWORD: postgres
+    volumes:
+      - ./:/tests
+
+  import-sql:
+    image: indoorequal/openmaptiles-tools:5.2
+    command: import-sql
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+      MAX_PARALLEL_PSQL: 1
+    volumes:
+      - ./build/sql:/sql
+
+  run-tests:
+    image: hbpmip/pgtap
+    environment:
+      HOST: postgres
+      PASSWORD: postgres
+      DATABASE: postgres
+      TESTS: /tests/layers/**/*_test.sql
+    volumes:
+      - ./:/tests

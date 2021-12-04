@@ -25,6 +25,10 @@ Edit `docker-compose.override.yml`:
 
 And follow the usage instructions.
 
+You can also run tests written with [pgTAP][]:
+
+    ./script/test
+
 ## Usage
 
 To start the initial import of the planet:
@@ -75,3 +79,4 @@ description near the image, in the same fashion as if you cite a photograph.
 [osm]: https://openstreetmap.org/
 [s-i-t]: https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging
 [omt-tools]: https://github.com/openmaptiles/openmaptiles-tools
+[pgtap]: https://pgtap.org/

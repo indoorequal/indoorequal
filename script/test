@@ -3,31 +3,10 @@
 make clean
 make
 
-docker run --name indoorequal-db --env POSTGRES_PASSWORD=postgres --detach indoorequal/postgis
+export COMPOSE_FILE=docker-compose-test.yml
+export COMPOSE_PROJECT_NAME=indoorequal-test
 
-docker run --rm \
-       --link indoorequal-db:db \
-       --volume $PWD:/tests \
-       --env PGPASSWORD=postgres \
-       postgres psql --host=db --username postgres postgres \
-       -f /tests/layers/common/table_schema.sql
-
-docker run \
-       --rm \
-       --link indoorequal-db:db \
-       -e POSTGRES_DB=postgres \
-       -e POSTGRES_USER=postgres \
-       -e POSTGRES_PASSWORD=postgres \
-       -e POSTGRES_HOST=db \
-       -e MAX_PARALLEL_PSQL=1 \
-       --volume $PWD/build/sql:/sql \
-       indoorequal/openmaptiles-tools:5.2 import-sql
-
-docker run --interactive --tty --rm \
-       --name indoorequal-pgtap \
-       --link indoorequal-db:db \
-       --env PASSWORD=postgres \
-       --env TESTS=/tests/layers/**/*_test.sql \
-       --env DATABASE=postgres \
-       --volume $PWD:/tests \
-       hbpmip/pgtap
+docker-compose up -d postgres
+docker-compose run --rm import-table-schema
+docker-compose run --rm import-sql
+docker-compose run --rm run-tests
