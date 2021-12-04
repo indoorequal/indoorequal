@@ -1,12 +1,13 @@
 # indoor=
 
-indoor= generate vector tiles of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t].
+indoor= generate Mapbox's Vector Tiles (MVT) of [OpenStreetMap][osm] indoor data. It implements parts of [Simple Indoor Tagging][s-i-t].
 
 Discover:
 
-- the frontend: https://github.com/indoorequal/indoorequal.org
-- the library to integrate indoor=: https://github.com/indoorequal/mapbox-gl-indoorequal
-- the vector tile schema: https://indoorequal.com/doc/schema
+- [the frontend, indoorequal.org](https://github.com/indoorequal/indoorequal.org)
+- [the library to integrate indoor=, mapbox-gl-indoorequal](https://github.com/indoorequal/mapbox-gl-indoorequal)
+- [the library to integrate indoor=, openlayers-indoorequal](https://github.com/indoorequal/openlayers-indoorequal)
+- [the vector tile schema](https://indoorequal.com/doc/schema)
 
 indoor= is build with [openmaptiles-tools][omt-tools].
 
