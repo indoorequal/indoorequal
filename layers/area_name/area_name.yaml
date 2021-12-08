@@ -12,7 +12,7 @@ layer:
     level: The level of the feature
   datasource:
     geometry_field: geometry
-    query: (SELECT geometry, name, name_en, name_de, level FROM layer_area_name(!bbox!, z(!scale_denominator!))) AS t
+    query: (SELECT geometry, name, name_en, name_de, {name_languages}, level FROM layer_area_name(!bbox!, z(!scale_denominator!))) AS t
 schema:
   - ./update_area_point.sql
   - ./layer.sql

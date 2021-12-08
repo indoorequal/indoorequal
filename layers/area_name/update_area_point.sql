@@ -5,10 +5,15 @@ DROP MATERIALIZED VIEW IF EXISTS  osm_area_point CASCADE;
 
 CREATE MATERIALIZED VIEW osm_area_point AS (
     SELECT
-        wp.osm_id, ST_PointOnSurface(wp.geometry) AS geometry,
+        wp.osm_id,
+        ST_PointOnSurface(wp.geometry) AS geometry,
         wp.ref,
-        wp.name, wp.name_en, wp.name_de,
-        wp.level, wp.repeat_on
+        wp.name,
+        wp.name_en,
+        wp.name_de,
+        wp.level,
+        wp.repeat_on,
+        wp.tags
     FROM osm_indoor_polygon AS wp
     WHERE (wp.name <> '' OR wp.ref <> '') AND NOT is_poi(wp.tags)
 );
