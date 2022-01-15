@@ -17,7 +17,7 @@ In development, you should disable tiles caching.
 
 Edit `docker-compose.override.yml`:
 
-    version: "2.3"
+    version: "3"
     services:
       postserve:
         ports:
@@ -45,8 +45,7 @@ To start a one-time update and invalidate the tile cache:
 
 To generate a mbtiles file located at `data/tiles.mbtiles`
 
-    make generate-dc-config
-    make generate-tiles
+    make generate-tiles-pg
 
 Warning: Depending of the AREA, it can takes a lot of time to generate the mbtiles.
 

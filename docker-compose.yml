@@ -1,11 +1,11 @@
 # This version must match the MAKE_DC_VERSION value below
-version: "2.3"
+version: "3"
 
 volumes:
   pgdata:
 
 networks:
-  postgres_conn:
+  postgres:
     driver: bridge
   web:
     driver: bridge
@@ -13,12 +13,12 @@ networks:
 services:
 
   postgres:
-    image: "indoorequal/postgis"
+    image: "indoorequal/postgis:${TOOLS_VERSION}"
     command: postgres -c jit=off
     volumes:
       - pgdata:/var/lib/postgresql/data
     networks:
-      - postgres_conn
+      - postgres
     ports:
       - "5432"
     env_file: .env-postgres
@@ -29,56 +29,35 @@ services:
     environment:
       # Must match the version of this file (first line)
       # download-osm will use it when generating a composer file
-      MAKE_DC_VERSION: "2.3"
-      # Allow DIFF_MODE to be overwritten from shell
+      MAKE_DC_VERSION: "3"
+      # Allow DIFF_MODE, MIN_ZOOM, and MAX_ZOOM to be overwritten from shell
       DIFF_MODE: ${DIFF_MODE}
+      MIN_ZOOM: ${MIN_ZOOM}
+      MAX_ZOOM: ${MAX_ZOOM}
+      #Provide BBOX from *.bbox file if exists, else from .env
+      BBOX: ${BBOX}
       # Imposm configuration file describes how to load updates when enabled
       IMPOSM_CONFIG_FILE: ${IMPOSM_CONFIG_FILE}
       # Control import-sql processes
       MAX_PARALLEL_PSQL: ${MAX_PARALLEL_PSQL}
     networks:
-      - postgres_conn
+      - postgres
     volumes:
       - .:/tileset
       - ./data:/import
+      - ./data:/export
       - ./build/sql:/sql
       - ./build:/mapping
       - ./cache:/cache
 
-  generate-changed-vectortiles:
-    image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
-    command: ./export-list.sh
-    volumes:
-      - ./data:/export
-      - ./build/indoorequal.tm2source:/tm2source
-    networks:
-      - postgres_conn
-    env_file: .env
-    environment:
-      FILTER_MAPNIK_OUTPUT: ${FILTER_MAPNIK_OUTPUT}
-      MBTILES_NAME: ${MBTILES_FILE}
-
-  generate-vectortiles:
-    image: "openmaptiles/generate-vectortiles:${TOOLS_VERSION}"
-    volumes:
-      - ./data:/export
-      - ./build/indoorequal.tm2source:/tm2source
-    networks:
-      - postgres_conn
-    env_file: .env
-    environment:
-      FILTER_MAPNIK_OUTPUT: ${FILTER_MAPNIK_OUTPUT}
-      MBTILES_NAME: ${MBTILES_FILE}
-      BBOX: ${BBOX}
-      MIN_ZOOM: ${MIN_ZOOM}
-      MAX_ZOOM: ${MAX_ZOOM}
-
   postserve:
     image: "indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
-    command: "postserve indoorequal.yaml --verbose --port ${PPORT:-8090}"
+    command: "postserve ${TILESET_FILE} --verbose --serve=${OMT_HOST:-http://localhost}:${PPORT:-8090}"
     env_file: .env
+    environment:
+      TILESET_FILE: ${TILESET_FILE}
     networks:
-      - postgres_conn
+      - postgres
       - web
     volumes:
       - .:/tileset
@@ -90,4 +69,3 @@ services:
       - ./data/:/data/:ro
     networks:
       - web
-      - postgres_conn
