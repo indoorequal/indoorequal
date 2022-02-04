@@ -520,7 +520,7 @@ ifneq ($(strip $(NO_REFRESH)),)
 else
 	@echo ""
 	@echo "Refreshing docker images... Use NO_REFRESH=1 to skip."
-	docker-compose pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools generate-vectortiles postgres
+	docker-compose pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools postgres
 endif
 
 .PHONY: remove-docker-images
