@@ -14,6 +14,6 @@ RETURNS TABLE(geometry geometry, name text, name_en text, name_de text, level nu
           unnest(expand_levels(level, repeat_on)) AS level,
           tags
     FROM osm_area_point
-    WHERE zoom_level >= 17 AND geometry && bbox;
+    WHERE zoom_level >= %%VAR:indoor_zoom%% AND geometry && bbox;
 
 $$ LANGUAGE SQL IMMUTABLE;

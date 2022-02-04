@@ -19,12 +19,12 @@ RETURNS TABLE(id integer, geometry geometry, class text, subclass text, is_poi b
         -- etldoc: osm_indoor_polygon -> layer_indoor:z17_
         SELECT id, geometry, class, subclass, level, repeat_on, access, tags
         FROM osm_indoor_polygon
-        WHERE zoom_level >= 17 AND geometry && bbox
+        WHERE zoom_level >= %%VAR:indoor_zoom%% AND geometry && bbox
         UNION ALL
         -- etldoc: osm_indoor_linestring -> layer_indoor:z17_
         SELECT id, geometry, class, NULL as subclass, level, repeat_on, NULL as access, NULL AS tags
         FROM osm_indoor_linestring
-        WHERE zoom_level >= 17 AND geometry && bbox
+        WHERE zoom_level >= %%VAR:indoor_zoom%% AND geometry && bbox
      ) AS indoor_all
    ),
    unwalled_areas AS (

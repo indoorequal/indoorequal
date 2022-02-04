@@ -65,6 +65,8 @@ layer:
     key_field_as_attribute: no
     srid: 900913
     query: (SELECT osm_id, id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+  vars:
+    indoor_zoom: 17
 schema:
   - ../common/repeat_on.sql
   - ../common/level.sql

@@ -9,6 +9,8 @@ layer:
   datasource:
     geometry_field: geometry
     query: (SELECT id, geometry FROM layer_heat(!bbox!, z(!scale_denominator!))) AS t
+  vars:
+    indoor_zoom: 17
 schema:
   - ./update_heat.sql
   - ./layer.sql

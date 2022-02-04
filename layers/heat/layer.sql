@@ -9,6 +9,6 @@ RETURNS TABLE(id bigint, geometry geometry) AS $$
    -- etldoc: osm_area_heatpoint -> layer_heat:z0_17
    SELECT osm_id AS id, geometry
     FROM osm_area_heatpoint
-    WHERE zoom_level < 17 AND geometry && bbox;
+    WHERE zoom_level < %%VAR:indoor_zoom%% AND geometry && bbox;
 
 $$ LANGUAGE SQL IMMUTABLE;

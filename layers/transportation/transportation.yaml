@@ -14,6 +14,8 @@ layer:
   datasource:
     geometry_field: geometry
     query: (SELECT geometry, class, conveying, level FROM layer_transportation(!bbox!, z(!scale_denominator!))) AS t
+  vars:
+    indoor_zoom: 17
 schema:
   - ../common/repeat_on.sql
   - ../common/level.sql

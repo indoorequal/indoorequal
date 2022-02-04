@@ -22,6 +22,8 @@ layer:
   datasource:
     geometry_field: geometry
     query: (SELECT geometry, class, subclass, is_poi, level, access FROM layer_indoor(!bbox!, z(!scale_denominator!))) AS t
+  vars:
+    indoor_zoom: 17
 schema:
   - ../common/repeat_on.sql
   - ../common/is_poi.sql

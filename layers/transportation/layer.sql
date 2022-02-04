@@ -9,6 +9,6 @@ RETURNS TABLE(geometry geometry, class text, conveying text, level numeric) AS $
    -- etldoc: osm_transportation_linestring -> layer_transportation:z17_
    SELECT geometry, class, NULLIF(NULLIF(conveying, ''), 'no') AS conveying, unnest(expand_levels(level, repeat_on)) AS level
     FROM osm_transportation_linestring
-    WHERE zoom_level >= 17 AND geometry && bbox;
+    WHERE zoom_level >= %%VAR:indoor_zoom%% AND geometry && bbox;
 
 $$ LANGUAGE SQL IMMUTABLE;
