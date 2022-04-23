@@ -25,7 +25,6 @@ layer:
   vars:
     indoor_zoom: 17
 schema:
-  - ../common/repeat_on.sql
   - ../common/is_poi.sql
   - ../common/level.sql
   - ./layer.sql

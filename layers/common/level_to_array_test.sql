@@ -2,57 +2,57 @@ BEGIN;
 SELECT plan(11);
 
 SELECT is(
-    repeat_on_to_array('1'),
+    level_to_array('1'),
     ARRAY[ '1' ]
 );
 
 SELECT is(
-    repeat_on_to_array('1,2'),
+    level_to_array('1,2'),
     ARRAY[]::text[]
 );
 
 SELECT is(
-    repeat_on_to_array('HELLO'),
+    level_to_array('HELLO'),
     ARRAY[]::text[]
 );
 
 SELECT is(
-    repeat_on_to_array('1.5'),
+    level_to_array('1.5'),
     ARRAY[ '1.5' ]
 );
 
 SELECT is(
-    repeat_on_to_array('-1'),
+    level_to_array('-1'),
     ARRAY[ '-1' ]
 );
 
 SELECT is(
-    repeat_on_to_array('1;2'),
+    level_to_array('1;2'),
     ARRAY[ '1', '2' ]
 );
 
 SELECT is(
-    repeat_on_to_array('1.5;2.5'),
+    level_to_array('1.5;2.5'),
     ARRAY[ '1.5', '2.5' ]
 );
 
 SELECT is(
-    repeat_on_to_array('1-3'),
+    level_to_array('1-3'),
     ARRAY[ '1', '2', '3' ]
 );
 
 SELECT is(
-    repeat_on_to_array('-3--1'),
+    level_to_array('-3--1'),
     ARRAY[ '-3', '-2', '-1' ]
 );
 
 SELECT is(
-    repeat_on_to_array('1-3;5'),
+    level_to_array('1-3;5'),
     ARRAY[ '1', '2', '3', '5' ]
 );
 
 SELECT is(
-    repeat_on_to_array('-1-3;5'),
+    level_to_array('-1-3;5'),
     ARRAY[ '-1', '0', '1', '2', '3', '5' ]
 );
 

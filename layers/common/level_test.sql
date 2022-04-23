@@ -1,5 +1,5 @@
 BEGIN;
-SELECT plan(5);
+SELECT plan(6);
 
 SELECT is(
     expand_levels('1', ''),
@@ -9,6 +9,11 @@ SELECT is(
 SELECT is(
     expand_levels('1;2', ''),
     ARRAY[ 1, 2 ]::numeric[]
+);
+
+SELECT is(
+    expand_levels('1-3', ''),
+    ARRAY[ 1, 2, 3 ]::numeric[]
 );
 
 SELECT is(

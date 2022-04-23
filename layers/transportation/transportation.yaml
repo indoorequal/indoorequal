@@ -17,7 +17,6 @@ layer:
   vars:
     indoor_zoom: 17
 schema:
-  - ../common/repeat_on.sql
   - ../common/level.sql
   - ./layer.sql
 datasources:

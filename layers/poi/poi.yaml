@@ -68,7 +68,6 @@ layer:
   vars:
     indoor_zoom: 17
 schema:
-  - ../common/repeat_on.sql
   - ../common/level.sql
   - ./public_transport_stop_type.sql
   - ./update_poi_polygon.sql
