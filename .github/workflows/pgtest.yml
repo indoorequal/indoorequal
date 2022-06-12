@@ -21,7 +21,7 @@ jobs:
           - 5432:5432
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: install pg_prove
         run: sudo cpan TAP::Parser::SourceHandler::pgTAP
@@ -32,7 +32,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y --no-install-recommends postgresql-server-dev-all
 
       - name: Checkout pgtap
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: theory/pgtap
           path: pgtap
