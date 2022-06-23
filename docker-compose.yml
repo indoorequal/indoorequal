@@ -56,6 +56,7 @@ services:
     env_file: .env
     environment:
       TILESET_FILE: ${TILESET_FILE}
+      STATE_FILE: /tileset/data/last.state.txt
     networks:
       - postgres
       - web
