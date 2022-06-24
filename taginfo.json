@@ -1368,6 +1368,18 @@
     {
       "key": "highway",
       "value": "elevator"
+    },
+    {
+      "key": "amenity",
+      "value": "ticket_validator"
+    },
+    {
+      "key": "amenity",
+      "value": "photo_booth"
+    },
+    {
+      "key": "amenity",
+      "value": "bench"
     }
   ]
 }
