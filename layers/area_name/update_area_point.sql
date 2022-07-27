@@ -13,7 +13,7 @@ CREATE MATERIALIZED VIEW osm_area_point AS (
         wp.name_de,
         wp.level,
         wp.repeat_on,
-        wp.tags
+        update_tags(wp.tags, wp.geometry) as tags
     FROM osm_indoor_polygon AS wp
     WHERE (wp.name <> '' OR wp.ref <> '') AND NOT is_poi(wp.tags)
 );
