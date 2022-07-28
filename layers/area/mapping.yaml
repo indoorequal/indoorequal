@@ -21,7 +21,7 @@ tables:
       require:
         level: [__any__]
       require_regexp:
-        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+        level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
     fields:
     - name: osm_id
       type: id
@@ -66,7 +66,7 @@ tables:
       require:
         level: [__any__]
       require_regexp:
-        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+        level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
     fields:
     - name: osm_id
       type: id

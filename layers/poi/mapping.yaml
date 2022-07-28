@@ -440,7 +440,7 @@ tables:
       require:
         level: [__any__]
       require_regexp:
-        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+        level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
     fields: *poi_fields
     mapping: *poi_mapping
 
@@ -451,7 +451,7 @@ tables:
       require:
         level: [__any__]
       require_regexp:
-        level: '^-?\d+\.?\d*(;-?\d+\.?\d*)*$'
+        level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
     fields: *poi_fields
     mapping: *poi_mapping
 
