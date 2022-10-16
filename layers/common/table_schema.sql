@@ -28,11 +28,32 @@ CREATE TABLE osm_indoor_linestring (
     geometry geometry(LineString)
 );
 
+DROP TABLE IF EXISTS osm_transportation_linestring CASCADE;
 CREATE TABLE osm_transportation_linestring (
     id integer NOT NULL,
     osm_id bigint NOT NULL,
     class character varying,
     conveying character varying,
+    level character varying,
+    repeat_on character varying,
+    geometry geometry(LineString)
+);
+
+DROP TABLE IF EXISTS osm_barrier_linestring CASCADE;
+CREATE TABLE osm_barrier_linestring (
+    id integer NOT NULL,
+    osm_id bigint NOT NULL,
+    class character varying,
+    level character varying,
+    repeat_on character varying,
+    geometry geometry(LineString)
+);
+
+DROP TABLE IF EXISTS osm_barrier_point CASCADE;
+CREATE TABLE osm_barrier_point (
+    id integer NOT NULL,
+    osm_id bigint NOT NULL,
+    class character varying,
     level character varying,
     repeat_on character varying,
     geometry geometry(LineString)
