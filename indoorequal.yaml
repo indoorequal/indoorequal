@@ -3,6 +3,7 @@ tileset:
     - layers/area_name/area_name.yaml
     - layers/area/area.yaml
     - layers/transportation/transportation.yaml
+    - layers/barrier/barrier.yaml
     - layers/poi/poi.yaml
     - layers/heat/heat.yaml
   name: indoor=

@@ -1,0 +1,29 @@
+layer:
+  id: "barrier"
+  description: |
+    This layer includes [barrier](https://wiki.openstreetmap.org/wiki/Key:barrier) with their corresponding level.
+  buffer_size: 4
+  fields:
+    class:
+      description: |
+        The value of the [barrier tag](https://wiki.openstreetmap.org/wiki/Key:barrier).
+      values:
+      - area
+      - column
+      - corridor
+      - level
+      - platform
+      - room
+      - wall
+    level: The level of the barrier.
+  datasource:
+    geometry_field: geometry
+    query: (SELECT geometry, class, level FROM layer_barrier(!bbox!, z(!scale_denominator!))) AS t
+  vars:
+    indoor_zoom: 17
+schema:
+  - ../common/level.sql
+  - ./layer.sql
+datasources:
+  - type: imposm3
+    mapping_file: ./mapping.yaml
