@@ -29,14 +29,14 @@ jobs:
           SHELL: /bin/bash
 
       - name: install postgres dev
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends postgresql-server-dev-all
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends postgresql-server-dev-14
 
       - name: Checkout pgtap
         uses: actions/checkout@v3
         with:
           repository: theory/pgtap
           path: pgtap
-          ref: v1.1.0
+          ref: v1.2.0
 
       - name: install pgtap
         working-directory: pgtap
