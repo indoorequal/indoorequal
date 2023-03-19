@@ -13,7 +13,7 @@ networks:
 services:
 
   postgres:
-    image: "indoorequal/postgis:${TOOLS_VERSION}"
+    image: "ghcr.io/indoorequal/postgis:${TOOLS_VERSION}"
     command: postgres -c jit=off
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -24,7 +24,7 @@ services:
     env_file: .env-postgres
 
   openmaptiles-tools:
-    image: "indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
+    image: "ghcr.io/indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
     env_file: .env
     environment:
       # Must match the version of this file (first line)
@@ -51,7 +51,7 @@ services:
       - ./cache:/cache
 
   postserve:
-    image: "indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
+    image: "ghcr.io/indoorequal/openmaptiles-tools:${TOOLS_VERSION}"
     command: "postserve ${TILESET_FILE} --verbose --serve=${OMT_HOST:-http://localhost}:${PPORT:-8090}"
     env_file: .env
     environment:
@@ -66,7 +66,7 @@ services:
       - .:/tileset
 
   postserve-cache:
-    image: "indoorequal/nginx-cache-purge:1.19"
+    image: "ghcr.io/indoorequal/nginx-cache-purge:latest"
     volumes:
       - ./postserve-cache.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
