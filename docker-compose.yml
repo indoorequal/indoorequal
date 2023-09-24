@@ -57,6 +57,8 @@ services:
     environment:
       TILESET_FILE: ${TILESET_FILE}
       STATE_FILE: /tileset/data/last.state.txt
+    depends_on:
+      - postgres
     networks:
       - postgres
       - web
@@ -69,3 +71,5 @@ services:
       - ./postserve-cache.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - web
+    depends_on:
+      - postserve

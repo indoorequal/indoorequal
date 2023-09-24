@@ -32,6 +32,8 @@ You can also run tests written with [pgTAP][]:
 
 ## Usage
 
+### Import data from [OpenStreetMap][osm]
+
 To start the initial import of the planet:
 
     ./script/import
@@ -39,18 +41,29 @@ To start the initial import of the planet:
 To use another area than the planet, open `.env` file and update the `AREA` variable with the name of your area. Use `make list-geofabrik` to find the available names.
 Then run `./script/import`.
 
-To start a one-time update and invalidate the tile cache:
+### Import your own data
+
+1. Prepare `.osm` file with [JOSM][] or other tool
+1. Convert file to `.osm.pbf` with [osmium-tools][]: `osmium cat map.osm --output map.osm.pbf`
+1. Put the map.osm.pbf file to the `./data` directory
+1. Tune params in the `.env` file (`DIFF_MODE=false` and `AREA=map`)
+1. Import data with `./script/import`
+
+### Update data
+
+To start a one-time update and invalidate the tile cache. With OSM data you probably want to update it regulary.
 
     ./script/update
+
+### Generate mbtiles
 
 To generate a mbtiles file located at `data/tiles.mbtiles`
 
     make generate-tiles-pg
 
-Warning: Depending of the AREA, it can takes a lot of time to generate the mbtiles.
+Warning: Depending of the `AREA`, it can takes a lot of time to generate the mbtiles.
 
-
-## Running in production
+### Serve vector tiles
 
 To run the service in production with tiles caching:
 
@@ -58,9 +71,7 @@ To run the service in production with tiles caching:
 
 The tiles will be available at http://localhost:8090/
 
-To serve the tiles on another host than `localhost:8090`, for instance `indoorequal.org`, update the `postserve` service and add the `--serve` command line argument with the host.
-
-    postserve --serve=https://indoorequal.org indoorequal.yaml
+To serve the tiles on another host than `localhost:8090`, for instance `indoorequal.org`, set `OMT_HOST=https://indoorequal.org` and `PPORT=443` to the `.env` file.
 
 ## License
 
@@ -80,3 +91,5 @@ description near the image, in the same fashion as if you cite a photograph.
 [s-i-t]: https://wiki.openstreetmap.org/wiki/Simple_Indoor_Tagging
 [omt-tools]: https://github.com/openmaptiles/openmaptiles-tools
 [pgtap]: https://pgtap.org/
+[josm]: https://josm.openstreetmap.de/
+[osmium-tools]: https://osmcode.org/osmium-tool/
