@@ -26,9 +26,9 @@ export TPORT
 # Allow a custom docker-compose project name
 ifeq ($(strip $(DC_PROJECT)),)
   DC_PROJECT := $(notdir $(shell pwd))
-  DOCKER_COMPOSE := docker compose
+  DOCKER_COMPOSE := docker-compose
 else
-  DOCKER_COMPOSE := docker compose --project-name $(DC_PROJECT)
+  DOCKER_COMPOSE := docker-compose --project-name $(DC_PROJECT)
 endif
 
 # Make some operations quieter (e.g. inside the test script)
@@ -520,7 +520,7 @@ ifneq ($(strip $(NO_REFRESH)),)
 else
 	@echo ""
 	@echo "Refreshing docker images... Use NO_REFRESH=1 to skip."
-	docker compose pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools postgres
+	docker-compose pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools postgres
 endif
 
 .PHONY: remove-docker-images
@@ -544,7 +544,7 @@ test-perf-null: init-dirs
 
 .PHONY: build-test-pbf
 build-test-pbf: init-dirs
-	docker compose run $(DC_OPTS) openmaptiles-tools /tileset/.github/workflows/build-test-data.sh
+	docker-compose run $(DC_OPTS) openmaptiles-tools /tileset/.github/workflows/build-test-data.sh
 
 .PHONY: expire-tiles
 expire-tiles:
