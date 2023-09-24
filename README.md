@@ -62,6 +62,18 @@ To serve the tiles on another host than `localhost:8090`, for instance `indooreq
 
     postserve --serve=https://indoorequal.org indoorequal.yaml
 
+
+## Launch your own map of premises
+1. `git clone https://github.com/indoorequal/indoorequal`
+2. Prepare .OSM (or other) map with indoor tags
+3. Convert map to .osm.pbf with `osmconvert64 plan.osm --out-pbf > plan.osm.pbf`
+4. Put them to ./data 
+5. Tune params in .env (like `BBOX`, `DIFF_MODE=false` and `AREA=plan`)
+6. Import to map BD with `make import-osm && make import-sql`
+7. Add `OMT_HOST=https://example.com` and `PPORT=443` for external access to tiles
+8. Serve with `docker compose up -d postgres postserve postserve-cache`
+
+
 ## License
 
 All code in this repository is under the [BSD license](./LICENSE.md) and the cartography decisions encoded in the schema and SQL are licensed under [CC-BY](./LICENSE.md).
