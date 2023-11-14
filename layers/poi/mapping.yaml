@@ -363,6 +363,8 @@ def_poi_door: &poi_mapping_door
 # Emergency values , see https://taginfo.openstreetmap.org/keys/emergency#values
 def_poi_emergency: &poi_mapping_emergency
   - defibrillator
+  - phone
+  - fire_extinguisher
 
 def_poi_fields: &poi_fields
   - name: osm_id
