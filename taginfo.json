@@ -126,8 +126,20 @@
       "key": "layer"
     },
     {
+      "key": "aeroway",
+      "value": "gate"
+    },
+    {
       "key": "emergency",
       "value": "defibrillator"
+    },
+    {
+      "key": "emergency",
+      "value": "phone"
+    },
+    {
+      "key": "emergency",
+      "value": "fire_extinguisher"
     },
     {
       "key": "railway",
