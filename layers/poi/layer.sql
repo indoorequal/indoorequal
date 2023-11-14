@@ -13,10 +13,11 @@ $$ LANGUAGE SQL IMMUTABLE;
 
 DROP FUNCTION IF EXISTS layer_poi(geometry, integer, numeric);
 CREATE FUNCTION layer_poi(bbox geometry, zoom_level integer, pixel_width numeric)
-RETURNS TABLE(osm_id bigint, id text, geometry geometry, name text, name_en text, name_de text, tags hstore, class text, subclass text, agg_stop integer, layer integer, level numeric, indoor integer, "rank" int) AS $$
+RETURNS TABLE(osm_id bigint, id text, geometry geometry, name text, name_en text, name_de text, ref text, tags hstore, class text, subclass text, agg_stop integer, layer integer, level numeric, indoor integer, "rank" int) AS $$
     SELECT osm_id_hash AS osm_id, global_id_from_imposm(osm_id) as id, geometry, NULLIF(name, '') AS name,
         COALESCE(NULLIF(name_en, ''), name) AS name_en,
         COALESCE(NULLIF(name_de, ''), name, name_en) AS name_de,
+        NULLIF(ref, '') AS ref,
         tags,
         poi_class(subclass, mapping_key) AS class,
         CASE

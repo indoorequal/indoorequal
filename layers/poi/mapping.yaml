@@ -2,6 +2,10 @@
 def_poi_mapping_aerialway: &poi_mapping_aerialway
   - station
 
+# aeroway values , see http://taginfo.openstreetmap.org/keys/aeroway#values
+def_poi_mapping_aeroway: &poi_mapping_aeroway
+  - gate
+
 # amenity values , see http://taginfo.openstreetmap.org/keys/amenity#values
 def_poi_mapping_amenity: &poi_mapping_amenity
   - ticket_validator
@@ -395,6 +399,9 @@ def_poi_fields: &poi_fields
   - name: religion
     key: religion
     type: string
+  - name: ref
+    key: ref
+    type: string
   - name: level
     key: level
     type: string
@@ -416,6 +423,7 @@ def_poi_fields: &poi_fields
 
 def_poi_mapping: &poi_mapping
   aerialway: *poi_mapping_aerialway
+  aeroway: *poi_mapping_aeroway
   amenity: *poi_mapping_amenity
   barrier: *poi_mapping_barrier
   craft: *poi_mapping_craft

@@ -66,8 +66,8 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('castle','ruins') THEN 'castle'
         when subclass IN ('bank', 'bureau_de_change', 'atm') THEN 'bank'
         WHEN mapping_key IN ('door', 'entrance') THEN 'entrance'
-        WHEN mapping_key IN ('exhibit') THEN 'exhibit'
-        WHEN mapping_key IN ('craft') THEN 'craft'
-        ELSE subclass
+        WHEN mapping_key IN ('exhibit') THEN mapping_key
+        WHEN mapping_key IN ('craft') THEN mapping_key
+        WHEN mapping_key IN ('aeroway') THEN mapping_key
     END;
 $$ LANGUAGE SQL IMMUTABLE;

@@ -10,6 +10,7 @@ layer:
     name: The OSM [`name`](http://wiki.openstreetmap.org/wiki/Key:name) value of the POI.
     name_en: English name `name:en` if available, otherwise `name`.
     name_de: German name `name:de` if available, otherwise `name` or `name:en`.
+    ref: The OSM [`ref`](http://wiki.openstreetmap.org/wiki/Key:ref) value.
     class: |
         More general classes of POIs. If there is no more general `class` for the `subclass`
         this field will contain the same value as `subclass`.
@@ -18,6 +19,7 @@ layer:
     subclass:
       description: |
           Original value of either the
+          [`aeroway`](http://wiki.openstreetmap.org/wiki/Key:aeroway),
           [`amenity`](http://wiki.openstreetmap.org/wiki/Key:amenity),
           [`barrier`](http://wiki.openstreetmap.org/wiki/Key:barrier),
           [`historic`](http://wiki.openstreetmap.org/wiki/Key:historic),
@@ -64,7 +66,7 @@ layer:
     key_field: osm_id
     key_field_as_attribute: no
     srid: 900913
-    query: (SELECT osm_id, id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
+    query: (SELECT osm_id, id, geometry, name, name_en, name_de, {name_languages}, class, subclass, agg_stop, layer, level, indoor, rank, ref FROM layer_poi(!bbox!, z(!scale_denominator!), !pixel_width!)) AS t
   vars:
     indoor_zoom: 17
 schema:
