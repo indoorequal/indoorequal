@@ -549,10 +549,10 @@ build-test-pbf: init-dirs
 .PHONY: expire-tiles
 expire-tiles:
 	@echo "Expiring tiles"
-	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/expire_tiles.tiles
-	@./script/expire_tiles_zoom
-	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/expire_tiles.tiles
-	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/expire_tiles.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
+	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/imposm_expire_tiles.tiles
+	$(DOCKER_COMPOSE) run $(DC_OPTS) --interactive openmaptiles-tools bash -c "tile_multiplier 0 $(OMT_VAR_indoor_zoom) < /tileset/data/expire_tiles/imposm_expire_tiles.tiles" > data/expire_tiles/all_tiles_to_expires.tiles
+	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/all_tiles_to_expires.tiles
+	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/all_tiles_to_expires.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
 	@rm -rf data/expire_tiles/
 
 .PHONY: debug

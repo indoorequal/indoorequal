@@ -2,12 +2,12 @@ version: "2.3"
 
 services:
   postgres:
-    image: indoorequal/postgis
+    image: ghcr.io/indoorequal/postgis:${TOOLS_VERSION}
     environment:
       POSTGRES_PASSWORD: postgres
 
   import-table-schema:
-    image: indoorequal/postgis:${TOOLS_VERSION}
+    image: ghcr.io/indoorequal/postgis:${TOOLS_VERSION}
     command: psql --host=postgres --username postgres postgres -f /tests/layers/common/table_schema.sql
     environment:
       PGPASSWORD: postgres
@@ -15,7 +15,7 @@ services:
       - ./:/tests
 
   import-sql:
-    image: indoorequal/openmaptiles-tools:${TOOLS_VERSION}
+    image: ghcr.io/indoorequal/openmaptiles-tools:${TOOLS_VERSION}
     command: import-sql
     environment:
       POSTGRES_HOST: postgres
