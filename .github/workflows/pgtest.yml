@@ -9,7 +9,7 @@ jobs:
 
     services:
       postgres:
-        image: ghcr.io/indoorequal/postgis:7.0.0
+        image: ghcr.io/indoorequal/postgis:7.1.0
         env:
           POSTGRES_PASSWORD: postgres
         options: >-
@@ -55,7 +55,7 @@ jobs:
           PGPASSWORD: postgres
 
       - name: import sql
-        uses: docker://ghcr.io/indoorequal/openmaptiles-tools:7.0.0
+        uses: docker://ghcr.io/indoorequal/openmaptiles-tools:7.1.0
         with:
           args: import-sql
         env:
