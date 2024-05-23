@@ -65,6 +65,7 @@ RETURNS TEXT AS $$
         WHEN subclass IN ('swimming_area','swimming') THEN 'swimming'
         WHEN subclass IN ('castle','ruins') THEN 'castle'
         when subclass IN ('bank', 'bureau_de_change', 'atm') THEN 'bank'
+        when subclass IN ('telephone', 'phone') THEN 'telephone'
         WHEN mapping_key IN ('door', 'entrance') THEN 'entrance'
         when mapping_key IN ('emergency', 'exhibit', 'craft', 'aeroway') THEN mapping_key
     END;
