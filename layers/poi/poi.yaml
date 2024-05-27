@@ -26,7 +26,7 @@ layer:
                      'jewelry', 'kiosk', 'locksmith', 'lamps', 'mall', 'massage', 'motorcycle', 'mobile_phone',
                      'newsagent', 'optician', 'outdoor', 'paint', 'perfumery', 'perfume', 'pet', 'photo', 'second_hand',
                      'shoes', 'sports', 'stationery', 'tailor', 'tattoo', 'ticket', 'tobacco', 'toys', 'travel_agency',
-                     'watches', 'weapons', 'wholesale', 'tea', 'frame', 'e-cigarette', 'variety_store', 'fashion_accessories', 'houseware', 'ice_cream']
+                     'watches', 'weapons', 'wholesale', 'tea', 'frame', 'e-cigarette', 'variety_store', 'fashion_accessories', 'houseware', 'ice_cream', 'pastry']
         bank:
           subclass: ['bank', 'bureau_de_change', 'atm']
         office:
