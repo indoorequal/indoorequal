@@ -108,6 +108,7 @@ def_poi_mapping_landuse: &poi_mapping_landuse
 
 # leisure values , see http://taginfo.openstreetmap.org/keys/leisure#values
 def_poi_mapping_leisure: &poi_mapping_leisure
+  - amusement_arcade
   - dog_park
   - escape_game
   - garden
