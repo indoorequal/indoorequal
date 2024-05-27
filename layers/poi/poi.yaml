@@ -26,7 +26,7 @@ layer:
                      'jewelry', 'kiosk', 'locksmith', 'lamps', 'mall', 'massage', 'motorcycle', 'mobile_phone',
                      'newsagent', 'optician', 'outdoor', 'paint', 'perfumery', 'perfume', 'pet', 'photo', 'second_hand',
                      'shoes', 'sports', 'stationery', 'tailor', 'tattoo', 'ticket', 'tobacco', 'toys', 'travel_agency',
-                     'watches', 'weapons', 'wholesale', 'tea', 'frame', 'e-cigarette', 'variety_store', 'fashion_accessories', 'houseware']
+                     'watches', 'weapons', 'wholesale', 'tea', 'frame', 'e-cigarette', 'variety_store', 'fashion_accessories', 'houseware', 'ice_cream']
         bank:
           subclass: ['bank', 'bureau_de_change', 'atm']
         office:
@@ -72,8 +72,6 @@ layer:
           subclass: ['university', 'college']
         lodging:
           subclass: ['hotel', 'motel', 'bed_and_breakfast', 'guest_house', 'hostel', 'chalet', 'alpine_hut', 'dormitory']
-        ice_cream:
-          subclass: ['ice_cream']
         post:
           subclass: ['post_box', 'post_office', 'parcel_locker']
         cafe:
