@@ -60,6 +60,10 @@ CREATE TABLE osm_poi_point (
     sport character varying,
     vending character varying,
     repeat_on character varying,
+    area real,
+    operator character varying,
+    network character varying,
+    brand character varying,
     geometry geometry(Geometry,3857)
 );
 DROP TABLE IF EXISTS osm_poi_polygon CASCADE;
@@ -84,5 +88,9 @@ CREATE TABLE osm_poi_polygon (
     sport character varying,
     vending character varying,
     repeat_on character varying,
+    area real,
+    operator character varying,
+    network character varying,
+    brand character varying,
     geometry geometry(Geometry,3857)
 );
