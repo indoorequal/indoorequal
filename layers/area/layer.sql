@@ -1,9 +1,7 @@
 -- etldoc: layer_indoor[shape=record fillcolor=lightpink,
 -- etldoc:     style="rounded,filled", label="layer_indoor | <z17_> z17+" ] ;
 
-DROP FUNCTION IF EXISTS layer_indoor(geometry, integer, numeric);
-DROP FUNCTION IF EXISTS layer_indoor(geometry, integer);
-CREATE FUNCTION layer_indoor(bbox geometry, zoom_level integer)
+CREATE OR REPLACE FUNCTION layer_indoor(bbox geometry, zoom_level integer)
 RETURNS TABLE(id integer, geometry geometry, class text, subclass text, is_poi boolean, level numeric, access text) AS $$
   WITH
   areas AS (
