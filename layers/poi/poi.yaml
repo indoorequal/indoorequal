@@ -112,6 +112,10 @@ layer:
           subclass: ['fuel', 'charging_station']
         telephone:
           subclass: ['telephone', 'phone']
+        vending_machine:
+          subclass: ['vending_machine']
+        information:
+          subclass: ['information']
     subclass:
       description: |
           Original value of either the
