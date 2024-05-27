@@ -11,12 +11,12 @@ def_poi_mapping_amenity: &poi_mapping_amenity
   - ticket_validator
   - photo_booth
   - bench
-  - atm
   - car_rental
   - piano
   - bureau_de_change
   - vending_machine
   - arts_centre
+  - atm
   - bank
   - bar
   - bbq
@@ -25,6 +25,7 @@ def_poi_mapping_amenity: &poi_mapping_amenity
   - biergarten
   - bus_station
   - cafe
+  - charging_station
   - cinema
   - clinic
   - college
@@ -32,7 +33,7 @@ def_poi_mapping_amenity: &poi_mapping_amenity
   - courthouse
   - dentist
   - doctors
-  - embassy
+  - drinking_water
   - fast_food
   - ferry_terminal
   - fire_station
@@ -51,6 +52,7 @@ def_poi_mapping_amenity: &poi_mapping_amenity
   - pharmacy
   - place_of_worship
   - police
+  - parcel_locker
   - post_box
   - post_office
   - prison
@@ -81,6 +83,21 @@ def_poi_mapping_barrier: &poi_mapping_barrier
   - stile
   - toll_booth
 
+# building values , see http://taginfo.openstreetmap.org/keys/building#values
+def_poi_mapping_building: &poi_mapping_building
+  - dormitory
+
+# highway values , see http://taginfo.openstreetmap.org/keys/highway#values
+def_poi_mapping_highway: &poi_mapping_highway
+  - bus_stop
+  - elevator
+
+# historic values , see http://taginfo.openstreetmap.org/keys/historic#values
+def_poi_mapping_historic: &poi_mapping_historic
+  - monument
+  - castle
+  - ruins
+
 # landuse values , see http://taginfo.openstreetmap.org/keys/landuse#values
 def_poi_mapping_landuse: &poi_mapping_landuse
   - basin
@@ -91,6 +108,7 @@ def_poi_mapping_landuse: &poi_mapping_landuse
 
 # leisure values , see http://taginfo.openstreetmap.org/keys/leisure#values
 def_poi_mapping_leisure: &poi_mapping_leisure
+  - amusement_arcade
   - dog_park
   - escape_game
   - garden
@@ -107,6 +125,69 @@ def_poi_mapping_leisure: &poi_mapping_leisure
   - swimming_area
   - swimming_pool
   - water_park
+
+# office values , see http://taginfo.openstreetmap.org/keys/office#values
+def_poi_mapping_office: &poi_mapping_office
+  - accountant
+  - advertising_agency
+  - architect
+  - association
+  - bail_bond_agent
+  - charity
+  - company
+  - construction_company
+  - consulting
+  - cooperative
+  - courier
+  - coworking
+  - diplomatic
+  - educational_institution
+  - employment_agency
+  - energy_supplier
+  - engineer
+  - estate_agent
+  - financial
+  - financial_advisor
+  - forestry
+  - foundation
+  - geodesist
+  - government
+  - graphic_design
+  - guide
+  - harbour_master
+  - health_insurance
+  - insurance
+  - interior_design
+  - it
+  - lawyer
+  - logistics
+  - marketing
+  - moving_company
+  - newspaper
+  - ngo
+  - notary
+  - physician
+  - political_party
+  - private_investigator
+  - property_management
+  - publisher
+  - quango
+  - religion
+  - research
+  - security
+  - surveyor
+  - tax_advisor
+  - taxi
+  - telecommunication
+  - therapist
+  - translator
+  - travel_agent
+  - tutoring
+  - union
+  - university
+  - water_utility
+  - web_design
+  - wedding_planner
 
 # railway values , see http://taginfo.openstreetmap.org/keys/railway#values
 def_poi_mapping_railway: &poi_mapping_railway
@@ -184,6 +265,7 @@ def_poi_mapping_shop: &poi_mapping_shop
   - kiosk
   - lamps
   - laundry
+  - locksmith
   - mall
   - massage
   - mobile_phone
@@ -193,6 +275,7 @@ def_poi_mapping_shop: &poi_mapping_shop
   - newsagent
   - optician
   - outdoor
+  - paint
   - perfume
   - perfumery
   - pet
@@ -214,6 +297,47 @@ def_poi_mapping_shop: &poi_mapping_shop
   - weapons
   - wholesale
   - wine
+
+# craft values , see http://taginfo.openstreetmap.org/keys/craft#values
+def_poi_craft: &poi_mapping_craft
+  - caterer
+  - shoemaker
+  - tailor
+  - brewery
+  - confectionery
+  - dressmaker
+  - electronics_repair
+
+  # Entrance values , see https://taginfo.openstreetmap.org/keys/?key=entrance#values
+def_poi_entrance: &poi_mapping_entrance
+  - 'yes'
+  - main
+  - staircase
+  - home
+  - service
+  - emergency
+  - exit
+  - shop
+  - building
+
+# Exhibit values , see https://taginfo.openstreetmap.org/keys/exhibit#values
+def_poi_exhibit: &poi_mapping_exhibit
+  - artwork
+  - history
+
+# Door values , see https://taginfo.openstreetmap.org/keys/door#values
+def_poi_door: &poi_mapping_door
+  - 'yes'
+  - 'no'
+  - hinged
+  - sliding
+  - overhead
+
+# Emergency values , see https://taginfo.openstreetmap.org/keys/emergency#values
+def_poi_emergency: &poi_mapping_emergency
+  - defibrillator
+  - phone
+  - fire_extinguisher
 
 # sport values , see http://taginfo.openstreetmap.org/keys/sport#values
 def_poi_mapping_sport: &poi_mapping_sport
@@ -318,60 +442,17 @@ def_poi_mapping_tourism: &poi_mapping_tourism
   - viewpoint
   - zoo
 
-# Office values , see https://taginfo.openstreetmap.org/keys/office#values
-def_poi_mapping_office: &poi_mapping_office
-  - government
-
-# craft values , see http://taginfo.openstreetmap.org/keys/craft#values
-def_poi_craft: &poi_mapping_craft
-  - caterer
-  - shoemaker
-  - tailor
-  - brewery
-  - confectionery
-  - dressmaker
-  - electronics_repair
-
-# Entrance values , see https://taginfo.openstreetmap.org/keys/?key=entrance#values
-def_poi_entrance: &poi_mapping_entrance
-  - 'yes'
-  - main
-  - staircase
-  - home
-  - service
-  - emergency
-  - exit
-  - shop
-  - building
-
-# Highway values , see https://taginfo.openstreetmap.org/keys/highway#values
-def_poi_highway: &poi_mapping_highway
-  - elevator
-
-# Exhibit values , see https://taginfo.openstreetmap.org/keys/exhibit#values
-def_poi_exhibit: &poi_mapping_exhibit
-  - artwork
-  - history
-
-# Door values , see https://taginfo.openstreetmap.org/keys/door#values
-def_poi_door: &poi_mapping_door
-  - 'yes'
-  - 'no'
-  - hinged
-  - sliding
-  - overhead
-
-# Emergency values , see https://taginfo.openstreetmap.org/keys/emergency#values
-def_poi_emergency: &poi_mapping_emergency
-  - defibrillator
-  - phone
-  - fire_extinguisher
+# waterway values , see http://taginfo.openstreetmap.org/keys/waterway#values
+def_poi_mapping_waterway: &poi_mapping_waterway
+  - dock
 
 def_poi_fields: &poi_fields
   - name: osm_id
     type: id
   - name: geometry
     type: geometry
+  - name: area
+    type: area
   - name: name
     key: name
     type: string
@@ -399,11 +480,11 @@ def_poi_fields: &poi_fields
   - name: uic_ref
     key: uic_ref
     type: string
-  - name: religion
-    key: religion
-    type: string
   - name: ref
     key: ref
+    type: string
+  - name: religion
+    key: religion
     type: string
   - name: level
     key: level
@@ -416,6 +497,15 @@ def_poi_fields: &poi_fields
     type: integer
   - name: sport
     key: sport
+    type: string
+  - name: operator
+    key: operator
+    type: string
+  - name: network
+    key: network
+    type: string
+  - name: brand
+    key: brand
     type: string
   - name: vending
     key: vending
@@ -434,7 +524,9 @@ def_poi_mapping: &poi_mapping
   emergency: *poi_mapping_emergency
   entrance: *poi_mapping_entrance
   exhibit: *poi_mapping_exhibit
+  building: *poi_mapping_building
   highway: *poi_mapping_highway
+  historic: *poi_mapping_historic
   landuse: *poi_mapping_landuse
   leisure: *poi_mapping_leisure
   office: *poi_mapping_office
@@ -442,6 +534,7 @@ def_poi_mapping: &poi_mapping
   shop: *poi_mapping_shop
   sport: *poi_mapping_sport
   tourism: *poi_mapping_tourism
+  waterway: *poi_mapping_waterway
 
 tables:
   # etldoc: imposm3 -> osm_poi_point
@@ -452,7 +545,7 @@ tables:
         level: [__any__]
       require_regexp:
         level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
-    fields: *poi_fields
+    columns: *poi_fields
     mapping: *poi_mapping
 
   # etldoc: imposm3 -> osm_poi_polygon
@@ -463,7 +556,7 @@ tables:
         level: [__any__]
       require_regexp:
         level: '^-?\d+\.?\d*([;-]-?\d+\.?\d*)*$'
-    fields: *poi_fields
+    columns: *poi_fields
     mapping: *poi_mapping
 
 tags:

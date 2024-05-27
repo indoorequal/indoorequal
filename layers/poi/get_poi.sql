@@ -12,26 +12,27 @@ RETURNS bigint AS $$
    END
 $$ LANGUAGE plpgsql;
 
-
 CREATE OR REPLACE FUNCTION get_poi(global_id text)
 RETURNS TEXT AS $$
   SELECT  ST_AsGeoJSON(feature.*) FROM (
-    SELECT global_id_from_imposm(osm_id) AS id, ST_Transform(geometry, 4326) AS geometry, NULLIF(name, '') AS name,
-        COALESCE(NULLIF(name_en, ''), name) AS name_en,
-        COALESCE(NULLIF(name_de, ''), name, name_en) AS name_de,
-        tags,
-        poi_class(subclass, mapping_key) AS class,
-        CASE
-            WHEN subclass = 'information'
-                THEN NULLIF(information, '')
-            WHEN subclass = 'place_of_worship'
-                    THEN NULLIF(religion, '')
-            WHEN subclass = 'pitch'
-                    THEN NULLIF(sport, '')
-            WHEN subclass = 'vending_machine'
-                    THEN NULLIF(vending, '')
-            ELSE subclass
-        END AS subclass,
+    SELECT global_id_from_imposm(osm_id) AS id,
+          ST_Transform(geometry, 4326) AS geometry,
+          NULLIF(name, '') AS name,
+          COALESCE(NULLIF(name_en, ''), name) AS name_en,
+          COALESCE(NULLIF(name_de, ''), name, name_en) AS name_de,
+          tags,
+          poi_class(subclass, mapping_key) AS class,
+          CASE
+              WHEN subclass = 'information'
+                  THEN NULLIF(information, '')
+              WHEN subclass = 'place_of_worship'
+                      THEN NULLIF(religion, '')
+              WHEN subclass = 'pitch'
+                      THEN NULLIF(sport, '')
+              WHEN subclass = 'vending_machine'
+                      THEN NULLIF(vending, '')
+              ELSE subclass
+           END AS subclass,
         NULLIF(layer, 0) AS layer,
         level,
         CASE WHEN indoor=TRUE THEN 1 ELSE NULL END as indoor
