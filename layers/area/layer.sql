@@ -2,7 +2,18 @@
 -- etldoc:     style="rounded,filled", label="layer_indoor | <z17_> z17+" ] ;
 
 CREATE OR REPLACE FUNCTION layer_indoor(bbox geometry, zoom_level integer)
-RETURNS TABLE(id integer, geometry geometry, class text, subclass text, is_poi boolean, level numeric, access text) AS $$
+     RETURNS TABLE
+             (
+                 id       integer,
+                 geometry geometry,
+                 class    text,
+                 subclass text,
+                 is_poi   boolean,
+                 level    numeric,
+                 access   text
+              )
+AS
+$$
   WITH
   areas AS (
     SELECT
