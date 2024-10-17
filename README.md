@@ -5,7 +5,7 @@ indoor= generate Mapbox's Vector Tiles (MVT) of [OpenStreetMap][osm] indoor data
 Discover:
 
 - [the frontend, indoorequal.org](https://github.com/indoorequal/indoorequal.org)
-- [the library to integrate indoor=, mapbox-gl-indoorequal](https://github.com/indoorequal/mapbox-gl-indoorequal)
+- [the library to integrate indoor=, maplibre-gl-indoorequal](https://github.com/indoorequal/maplibre-gl-indoorequal)
 - [the library to integrate indoor=, openlayers-indoorequal](https://github.com/indoorequal/openlayers-indoorequal)
 - [the vector tile schema](https://indoorequal.com/doc/schema)
 
