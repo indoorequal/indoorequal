@@ -7,7 +7,7 @@ make download
 
 make clean
 make
-docker-compose up -d postgres
+docker compose up -d postgres
 make import-osm
 make import-sql
 make analyze-db

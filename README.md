@@ -67,7 +67,7 @@ Warning: Depending of the `AREA`, it can takes a lot of time to generate the mbt
 
 To run the service in production with tiles caching:
 
-    docker-compose up -d postserve postserve-cache
+    docker compose up -d postserve postserve-cache
 
 The tiles will be available at http://localhost:8090/
 

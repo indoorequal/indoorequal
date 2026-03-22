@@ -6,7 +6,7 @@ make
 export COMPOSE_FILE=docker-compose-test.yml
 export COMPOSE_PROJECT_NAME=indoorequal-test
 
-docker-compose up -d postgres
-docker-compose run --rm import-table-schema
-docker-compose run --rm import-sql
-docker-compose run --rm run-tests
+docker compose up -d postgres
+docker compose run --rm import-table-schema
+docker compose run --rm import-sql
+docker compose run --rm run-tests

@@ -6,11 +6,8 @@
 SHELL         = /bin/bash
 .SHELLFLAGS   = -o pipefail -c
 
-# Make all .env variables available for make targets
-include .env
-
 # Layers definition and meta data
-TILESET_FILE ?= indoorequal.yaml
+TILESET_FILE := $(or $(TILESET_FILE),$(shell (. .env; echo $${TILESET_FILE})),indoorequal.yaml)
 
 # Options to run with docker and docker-compose - ensure the container is destroyed on exit
 # Containers run as the current user rather than root (so that created files are not root-owned)
@@ -23,16 +20,27 @@ export PPORT
 TPORT ?= 8080
 export TPORT
 
-# Allow a custom docker-compose project name
-ifeq ($(strip $(DC_PROJECT)),)
-  DC_PROJECT := $(notdir $(shell pwd))
-  DOCKER_COMPOSE := docker-compose
+# Support newer `docker compose` syntax in addition to `docker-compose`
+
+ifeq (, $(shell which docker-compose))
+  DOCKER_COMPOSE_COMMAND := docker compose
+  $(info Using docker compose V2 (docker compose))
 else
-  DOCKER_COMPOSE := docker-compose --project-name $(DC_PROJECT)
+  DOCKER_COMPOSE_COMMAND := docker-compose
+  $(info Using docker compose V1 (docker-compose))
+endif
+
+# Allow a custom docker-compose project name
+DC_PROJECT := $(or $(DC_PROJECT),$(shell (. .env; echo $${DC_PROJECT})))
+ifeq ($(DC_PROJECT),)
+  DC_PROJECT := $(notdir $(shell pwd))
+  DOCKER_COMPOSE := $(DOCKER_COMPOSE_COMMAND)
+else
+  DOCKER_COMPOSE := $(DOCKER_COMPOSE_COMMAND) --project-name $(DC_PROJECT)
 endif
 
 # Make some operations quieter (e.g. inside the test script)
-ifeq ($(strip $(QUIET)),)
+ifeq ($(or $(QUIET),$(shell (. .env; echo $${QUIET})))),)
   QUIET_FLAG :=
 else
   QUIET_FLAG := --quiet
@@ -52,8 +60,7 @@ else
 endif
 
 # Set OpenMapTiles host
-OMT_HOST := http://$(firstword $(subst :, ,$(subst tcp://,,$(DOCKER_HOST))) localhost)
-export OMT_HOST
+export OMT_HOST := http://$(firstword $(subst :, ,$(subst tcp://,,$(DOCKER_HOST))) localhost)
 
 # This defines an easy $(newline) value to act as a "\n". Make sure to keep exactly two empty lines after newline.
 define newline
@@ -61,12 +68,12 @@ define newline
 
 endef
 
-# use the old postgres connection values if they are existing
-PGHOST := $(or $(POSTGRES_HOST),$(PGHOST))
-PGPORT := $(or $(POSTGRES_PORT),$(PGPORT))
-PGDATABASE := $(or $(POSTGRES_DB),$(PGDATABASE))
-PGUSER := $(or $(POSTGRES_USER),$(PGUSER))
-PGPASSWORD := $(or $(POSTGRES_PASSWORD),$(PGPASSWORD))
+# Use the old Postgres connection values as a fallback
+PGHOST := $(or $(PGHOST),$(shell (. .env; echo $${PGHOST})),$(POSTGRES_HOST),$(shell (. .env; echo $${POSTGRES_HOST})),postgres)
+PGPORT := $(or $(PGPORT),$(shell (. .env; echo $${PGPORT})),$(POSTGRES_PORT),$(shell (. .env; echo $${POSTGRES_PORT})),postgres)
+PGDATABASE := $(or $(PGDATABASE),$(shell (. .env; echo $${PGDATABASE})),$(POSTGRES_DB),$(shell (. .env; echo $${POSTGRES_DB})),postgres)
+PGUSER := $(or $(PGUSER),$(shell (. .env; echo $${PGUSER})),$(POSTGRES_USER),$(shell (. .env; echo $${POSTGRES_USER})),postgres)
+PGPASSWORD := $(or $(PGPASSWORD),$(shell (. .env; echo $${PGPASSWORD})),$(POSTGRES_PASSWORD),$(shell (. .env; echo $${POSTGRES_PASSWORD})),postgres)
 
 #
 # Determine area to work on
@@ -79,7 +86,7 @@ PGPASSWORD := $(or $(POSTGRES_PASSWORD),$(PGPASSWORD))
 # historically we have been using $(area) rather than $(AREA), so make both work
 area ?= $(AREA)
 # Ensure the $(area) param is set, or try to automatically determine it based on available data files
-ifeq ($(strip $(area)),)
+ifeq ($(area),)
   # An $(area) parameter is not set. If only one *.osm.pbf file is found in ./data, use it as $(area).
   data_files := $(shell find data -name '*.osm.pbf' 2>/dev/null)
   ifneq ($(word 2,$(data_files)),)
@@ -124,7 +131,7 @@ ifeq ($(strip $(area)),)
   endif
 endif
 
-ifneq ($(strip $(AREA_INFO)),)
+ifneq ($(AREA_INFO),)
   define assert_area_is_given
       @echo "$(AREA_INFO)"
   endef
@@ -134,20 +141,17 @@ endif
 PBF_FILE ?= data/$(area).osm.pbf
 
 # For download-osm, allow URL parameter to download file from a given URL. Area param must still be provided.
-ifneq ($(strip $(url)),)
-  DOWNLOAD_AREA := $(url)
-else
-  DOWNLOAD_AREA := $(area)
-endif
+DOWNLOAD_AREA := $(or $(url), $(area))
 
-# The file is placed into the $EXPORT_DIR=/export (mapped to ./data)
-export MBTILES_FILE ?= $(area).mbtiles
+# The mbtiles file is placed into the $EXPORT_DIR=/export (mapped to ./data)
+MBTILES_FILE := $(or $(MBTILES_FILE),$(shell (. .env; echo $${MBTILES_FILE})),$(area).mbtiles)
 MBTILES_LOCAL_FILE = data/$(MBTILES_FILE)
 
-ifeq ($(strip $(DIFF_MODE)),true)
+DIFF_MODE := $(or $(DIFF_MODE),$(shell (. .env; echo $${DIFF_MODE})))
+ifeq ($(DIFF_MODE),true)
   # import-osm implementation requires IMPOSM_CONFIG_FILE to be set to a valid file
-  # For static (no-updates) import, we don't need to override the default value
-  # For the update mode, set location of the dynamically-generated area-based config file
+  # For one-time only imports, the default value is fine.
+  # For diff mode updates, use the dynamically-generated area-based config file
   export IMPOSM_CONFIG_FILE = data/$(area).repl.json
 endif
 
@@ -159,9 +163,15 @@ ifneq (,$(wildcard $(AREA_BBOX_FILE)))
   export BBOX
 endif
 
+# Consult .env if needed
+MIN_ZOOM := $(or $(MIN_ZOOM),$(shell (. .env; echo $${MIN_ZOOM})),0)
+MAX_ZOOM := $(or $(MAX_ZOOM),$(shell (. .env; echo $${MAX_ZOOM})),7)
+PPORT := $(or $(PPORT),$(shell (. .env; echo $${PPORT})),7)
+TPORT := $(or $(TPORT),$(shell (. .env; echo $${TPORT})),7)
+
 define HELP_MESSAGE
 ==============================================================================
- indoor=  https://github.com/indoorequal/indoorequal
+indoor=  https://github.com/indoorequal/indoorequal
 
 Hints for testing areas
   make list-geofabrik                  # list actual geofabrik OSM extracts for download -> <<your-area>>
@@ -169,9 +179,11 @@ Hints for testing areas
 
 Hints for designers:
   make start-maputnik                  # start Maputnik Editor + dynamic tile server [ see $(OMT_HOST):8088 ]
+  make stop-maputnik                   # stop Maputnik Editor + dynamic tile server
   make start-postserve                 # start dynamic tile server                   [ see $(OMT_HOST):$(PPORT) ]
   make stop-postserve                  # stop dynamic tile server
   make start-tileserver                # start maptiler/tileserver-gl                [ see $(OMT_HOST):$(TPORT) ]
+  make stop-tileserver                 # stop maptiler/tileserver-gl
 
 Hints for developers:
   make                                 # build source code
@@ -180,6 +192,9 @@ Hints for developers:
   make generate-devdoc                 # generate devdoc including graphs for all layers [./layers/...]
   make generate-qa                     # statistics for a given layer's field
   make generate-tiles-pg               # generate vector tiles based on .env settings using PostGIS ST_MVT()
+  make generate-tiles                  # generate vector tiles based on .env settings using Mapnik (obsolete)
+  make generate-changed-tiles          # Generate tiles changed by import-diff
+  make test-sql                        # run unit tests on the OpenMapTiles SQL schema
   cat  .env                            # list PG database and MIN_ZOOM and MAX_ZOOM information
   cat  quickstart.log                  # transcript of the last ./quickstart.sh run
   make help                            # help about available commands
@@ -248,7 +263,7 @@ init-dirs:
 build/indoorequal.tm2source/data.yml: init-dirs
 ifeq (,$(wildcard build/indoorequal.tm2source/data.yml))
 	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools bash -c \
-		'generate-tm2source $(TILESET_FILE) --host="$(PGHOST)" --port=$(PGPORT) --database="$(PGDATABASE)" --user="$(PGUSER)" --password="$(PGPASSWORD)" > $@'
+		'generate-tm2source $(TILESET_FILE) > $@'
 endif
 
 build/mapping.yaml: init-dirs
@@ -265,27 +280,31 @@ ifeq (,$(wildcard build/sql/run_last.sql))
 	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools bash -c \
 		'generate-sql $(TILESET_FILE) --dir ./build/sql \
 		&& generate-sqltomvt $(TILESET_FILE) \
-							 --key --gzip --postgis-ver 3.0.1 \
+							 --key --gzip --postgis-ver 3.3.4 \
 							 --function --fname=getmvt >> ./build/sql/run_last.sql'
 endif
 
 .PHONY: clean
-clean:
+clean: clean-test-data
 	rm -rf build
 
+clean-test-data:
+	rm -rf data/changes.state.txt
+	rm -rf data/last.state.txt
+	rm -rf data/changes.repl.json
+
 .PHONY: destroy-db
-# TODO:  Use https://stackoverflow.com/a/27852388/177275
-destroy-db: DC_PROJECT := $(shell echo $(DC_PROJECT) | tr A-Z a-z)
+DOCKER_PROJECT = $(shell echo $(DC_PROJECT) | tr A-Z a-z | tr -cd '[:alnum:]')
 destroy-db:
 	$(DOCKER_COMPOSE) down -v --remove-orphans
 	$(DOCKER_COMPOSE) rm -fv
-	docker volume ls -q -f "name=^$(DC_PROJECT)_" | $(XARGS) docker volume rm
+	docker volume ls -q -f "name=^$(DOCKER_PROJECT)_" | $(XARGS) docker volume rm
 	rm -rf cache
 	mkdir cache
 
 .PHONY: start-db-nowait
 start-db-nowait: init-dirs
-	@echo "Starting postgres docker compose target using indoorequal/postgis image (no recreate if exists)" && \
+	@echo "Starting postgres docker compose target using $${POSTGIS_IMAGE:-default} image (no recreate if exists)" && \
 	$(DOCKER_COMPOSE) up --no-recreate -d postgres
 
 .PHONY: start-db
@@ -316,11 +335,11 @@ OSM_SERVER=$(patsubst download,,$(patsubst download-%,%,$@))
 .PHONY: $(ALL_DOWNLOADS)
 $(ALL_DOWNLOADS): init-dirs
 	@$(assert_area_is_given)
-ifneq ($(strip $(url)),)
+ifneq ($(url),)
 	$(if $(OSM_SERVER),$(error url parameter can only be used with non-specific download target:$(newline)       make download area=$(area) url="$(url)"$(newline)))
 endif
 ifeq (,$(wildcard $(PBF_FILE)))
- ifeq ($(strip $(DIFF_MODE)),true)
+ ifeq ($(DIFF_MODE),true)
 	@echo "Downloading $(DOWNLOAD_AREA) with replication support into $(PBF_FILE) and $(IMPOSM_CONFIG_FILE) from $(if $(OSM_SERVER),$(OSM_SERVER),any source)"
 	@$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools download-osm $(OSM_SERVER) "$(DOWNLOAD_AREA)" \
 				--imposm-cfg "$(IMPOSM_CONFIG_FILE)" \
@@ -334,7 +353,7 @@ ifeq (,$(wildcard $(PBF_FILE)))
  endif
 	@echo ""
 else
- ifeq ($(strip $(DIFF_MODE)),true)
+ ifeq ($(DIFF_MODE),true)
   ifeq (,$(wildcard $(IMPOSM_CONFIG_FILE)))
 	$(error \
 		$(newline)   Data files $(PBF_FILE) already exists, but $(IMPOSM_CONFIG_FILE) does not. \
@@ -367,7 +386,7 @@ psql: start-db-nowait
 # Special cache handling for Docker Toolbox on Windows
 ifeq ($(MSYSTEM),MINGW64)
   DC_CONFIG_CACHE := -f docker-compose.yml -f docker-compose-$(MSYSTEM).yml
-  DC_OPTS_CACHE := $(strip $(filter-out --user=%,$(DC_OPTS)))
+  DC_OPTS_CACHE := $(filter-out --user=%,$(DC_OPTS))
 else
   DC_OPTS_CACHE := $(DC_OPTS)
 endif
@@ -377,21 +396,44 @@ import-osm: all start-db-nowait
 	@$(assert_area_is_given)
 	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && import-osm $(PBF_FILE)'
 
-.PHONY: update-osm
-update-osm: all start-db-nowait
+.PHONY: start-update-osm
+start-update-osm: start-db
 	@$(assert_area_is_given)
-	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && import-update'
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) up -d update-osm
+
+.PHONY: stop-update-osm
+stop-update-osm:
+	$(DOCKER_COMPOSE) stop update-osm
 
 .PHONY: import-diff
-import-diff: all start-db-nowait
+import-diff: start-db-nowait
 	@$(assert_area_is_given)
 	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && import-diff'
+
+.PHONY: expire-tiles
+expire-tiles:
+	@echo "Expiring tiles"
+	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/imposm_expire_tiles.tiles
+	$(DOCKER_COMPOSE) run $(DC_OPTS) --interactive openmaptiles-tools bash -c "tile_multiplier 0 $(OMT_VAR_indoor_zoom) < /tileset/data/expire_tiles/imposm_expire_tiles.tiles" > data/expire_tiles/all_tiles_to_expires.tiles
+	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/all_tiles_to_expires.tiles
+	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/all_tiles_to_expires.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
+	@rm -rf data/expire_tiles/
 
 .PHONY: import-sql
 import-sql: all start-db-nowait
 	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools sh -c 'pgwait && import-sql' | \
     	awk -v s=": WARNING:" '1{print; fflush()} $$0~s{print "\n*** WARNING detected, aborting"; exit(1)}' | \
     	awk '1{print; fflush()} $$0~".*ERROR" {txt=$$0} END{ if(txt){print "\n*** ERROR detected, aborting:"; print txt; exit(1)} }'
+
+.PHONY: generate-tiles
+generate-tiles: all start-db
+	@echo "WARNING: This Mapnik-based method of tile generation is obsolete. Use generate-tiles-pg instead."
+	@echo "Generating tiles into $(MBTILES_LOCAL_FILE) (will delete if already exists)..."
+	@rm -rf "$(MBTILES_LOCAL_FILE)"
+	$(DOCKER_COMPOSE) run $(DC_OPTS) generate-vectortiles
+	@echo "Updating generated tile metadata ..."
+	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools \
+			mbtiles-tools meta-generate "$(MBTILES_LOCAL_FILE)" $(TILESET_FILE) --auto-minmax --show-ranges
 
 .PHONY: generate-tiles-pg
 generate-tiles-pg: all start-db
@@ -403,6 +445,21 @@ generate-tiles-pg: all start-db
 	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools \
 			mbtiles-tools meta-generate "$(MBTILES_LOCAL_FILE)" $(TILESET_FILE) --auto-minmax --show-ranges
 
+.PHONY: data/tiles.txt
+data/tiles.txt:
+	find ./data -name "*.tiles" -exec cat {} \; -exec rm {} \; | \
+	  $(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools \
+	    tile_multiplier $(MIN_ZOOM) $(MAX_ZOOM) >> data/tiles.txt
+
+.PHONY: generate-changed-tiles
+generate-changed-tiles: data/tiles.txt
+	# Re-generating updated tiles, if needed
+	if [ -s data/tiles.txt ] ; then \
+	  $(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools refresh-views; \
+	  $(DOCKER_COMPOSE) run $(DC_OPTS) -e LIST_FILE=data/tiles.txt openmaptiles-tools generate-tiles; \
+	  rm data/tiles.txt; \
+	fi
+
 .PHONY: start-tileserver
 start-tileserver: init-dirs
 	@echo " "
@@ -413,7 +470,7 @@ start-tileserver: init-dirs
 	@echo "* "
 	@echo "***********************************************************"
 	@echo " "
-	docker pull maptiler/tileserver-gl
+	$(DOCKER_COMPOSE_COMMAND) pull tileserver-gl
 	@echo " "
 	@echo "***********************************************************"
 	@echo "* "
@@ -422,7 +479,11 @@ start-tileserver: init-dirs
 	@echo "* "
 	@echo "***********************************************************"
 	@echo " "
-	docker run $(DC_OPTS) -it --name tileserver-gl -v $$(pwd)/data:/data -p $(TPORT):$(TPORT) maptiler/tileserver-gl --port $(TPORT)
+	$(DOCKER_COMPOSE) up -d tileserver-gl
+
+.PHONY: stop-tileserver
+stop-tileserver:
+	$(DOCKER_COMPOSE) stop tileserver-gl
 
 .PHONY: start-postserve
 start-postserve: start-db
@@ -454,11 +515,11 @@ start-maputnik: stop-maputnik start-postserve
 	@echo "* "
 	@echo "***********************************************************"
 	@echo " "
-	docker run $(DC_OPTS) --name maputnik_editor -d -p 8088:8888 maputnik/editor
+	$(DOCKER_COMPOSE) up -d maputnik_editor
 
 .PHONY: stop-maputnik
 stop-maputnik:
-	-docker rm -f maputnik_editor
+	-$(DOCKER_COMPOSE) stop maputnik_editor
 
 # STAT_FUNCTION=frequency|toplength|variance
 .PHONY: generate-qa
@@ -515,12 +576,12 @@ list-docker-images:
 
 .PHONY: refresh-docker-images
 refresh-docker-images: init-dirs
-ifneq ($(strip $(NO_REFRESH)),)
+ifneq ($(NO_REFRESH),)
 	@echo "Skipping docker image refresh"
 else
 	@echo ""
 	@echo "Refreshing docker images... Use NO_REFRESH=1 to skip."
-	docker-compose pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools postgres
+	$(DOCKER_COMPOSE_COMMAND) pull --ignore-pull-failures $(QUIET_FLAG) openmaptiles-tools generate-vectortiles postgres
 endif
 
 .PHONY: remove-docker-images
@@ -544,16 +605,7 @@ test-perf-null: init-dirs
 
 .PHONY: build-test-pbf
 build-test-pbf: init-dirs
-	docker-compose run $(DC_OPTS) openmaptiles-tools /tileset/.github/workflows/build-test-data.sh
-
-.PHONY: expire-tiles
-expire-tiles:
-	@echo "Expiring tiles"
-	@find data/expire_tiles/???????? -name *.tiles | xargs cat > data/expire_tiles/imposm_expire_tiles.tiles
-	$(DOCKER_COMPOSE) run $(DC_OPTS) --interactive openmaptiles-tools bash -c "tile_multiplier 0 $(OMT_VAR_indoor_zoom) < /tileset/data/expire_tiles/imposm_expire_tiles.tiles" > data/expire_tiles/all_tiles_to_expires.tiles
-	@sed --in-place --expression=s/$$/\.pbf/ data/expire_tiles/all_tiles_to_expires.tiles
-	$(DOCKER_COMPOSE) exec postserve-cache wget --input-file=/data/expire_tiles/all_tiles_to_expires.tiles --base=http://localhost/purge/tiles/ --quiet --output-file=/dev/null || true
-	@rm -rf data/expire_tiles/
+	$(DOCKER_COMPOSE_COMMAND) run $(DC_OPTS) openmaptiles-tools /tileset/.github/workflows/build-test-data.sh
 
 .PHONY: debug
 debug:  ## Use this target when developing Makefile itself to verify loaded environment variables
@@ -563,3 +615,45 @@ debug:  ## Use this target when developing Makefile itself to verify loaded envi
 	@echo BBOX = $(BBOX) , $$BBOX
 	@echo MIN_ZOOM = $(MIN_ZOOM) , $$MIN_ZOOM
 	@echo MAX_ZOOM = $(MAX_ZOOM) , $$MAX_ZOOM
+
+build/import-tests.osm.pbf: init-dirs
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'osmconvert tests/import/*.osm -o=build/import-tests.osm.pbf'
+
+data/changes.state.txt:
+	cp -f tests/changes.state.txt data/
+
+data/last.state.txt:
+	cp -f tests/last.state.txt data/
+
+data/changes.repl.json:
+	cp -f tests/changes.repl.json data/
+
+data/changes.osc.gz: init-dirs
+	@echo " UPDATE unit test data..."
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'osmconvert tests/update/*.osc --merge-versions -o=data/changes.osc && gzip -f data/changes.osc'
+
+test-sql: clean refresh-docker-images destroy-db start-db-nowait build/import-tests.osm.pbf data/changes.state.txt data/last.state.txt data/changes.repl.json build/mapping.yaml data/changes.osc.gz build/indoorequal.tm2source/data.yml build/mapping.yaml build-sql
+	$(eval area := changes)
+
+	@echo "Load IMPORT test data"
+	sed -ir "s/^[#]*\s*MAX_ZOOM=.*/MAX_ZOOM=14/" .env
+	sed -ir "s/^[#]*\s*DIFF_MODE=.*/DIFF_MODE=false/" .env
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && import-osm build/import-tests.osm.pbf'
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) import-data
+
+	@echo "Apply OpenMapTiles SQL schema to test data @ Zoom 14..."
+	$(DOCKER_COMPOSE) run $(DC_OPTS) openmaptiles-tools sh -c 'pgwait && import-sql' | \
+    	awk -v s=": WARNING:" '1{print; fflush()} $$0~s{print "\n*** WARNING detected, aborting"; exit(1)}' | \
+    	awk '1{print; fflush()} $$0~".*ERROR" {txt=$$0} END{ if(txt){print "\n*** ERROR detected, aborting:"; print txt; exit(1)} }'
+
+	@echo "Test SQL output for Import Test Data"
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && psql.sh < tests/test-post-import.sql' 2>&1 | \
+		awk -v s="ERROR:" '1{print; fflush()} $$0~s{print "*** ERROR detected, aborting"; exit(1)}'
+
+	@echo "Run UPDATE process on test data..."
+	sed -ir "s/^[#]*\s*DIFF_MODE=.*/DIFF_MODE=true/" .env
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && import-diff'
+
+	@echo "Test SQL output for Update Test Data"
+	$(DOCKER_COMPOSE) $(DC_CONFIG_CACHE) run $(DC_OPTS_CACHE) openmaptiles-tools sh -c 'pgwait && psql.sh < tests/test-post-update.sql' 2>&1 | \
+		awk -v s="ERROR:" '1{print; fflush()} $$0~s{print "*** ERROR detected, aborting"; exit(1)}'
