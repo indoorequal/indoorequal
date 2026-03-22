@@ -29,7 +29,7 @@ jobs:
           SHELL: /bin/bash
 
       - name: install postgres dev
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends postgresql-server-dev-14
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends postgresql-server-dev-16
 
       - name: Checkout pgtap
         uses: actions/checkout@v6
