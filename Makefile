@@ -6,6 +6,8 @@
 SHELL         = /bin/bash
 .SHELLFLAGS   = -o pipefail -c
 
+AREA := $(or $(AREA),$(shell (. .env; echo $${AREA})))
+
 # Layers definition and meta data
 TILESET_FILE := $(or $(TILESET_FILE),$(shell (. .env; echo $${TILESET_FILE})),indoorequal.yaml)
 
